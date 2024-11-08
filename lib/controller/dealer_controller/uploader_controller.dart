@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-import '../../service/image_service.dart';
+import '../../service/dealer/image_service.dart';
 
 
 class UploaderController extends GetxController {

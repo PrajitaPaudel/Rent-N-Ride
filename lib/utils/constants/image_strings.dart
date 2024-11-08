@@ -22,9 +22,16 @@ class TImages {
 
   //icons categories
   static const String bike = "assets/icons/bike.png";
-  static const String bike1 = "assets/icons/bike1.png";
+  static const String cycle = "assets/icons/bike1.png";
   static const String scooter = "assets/icons/scooter.png";
   static const String bus = "assets/icons/bus.png";
-  static const String car = "assets/icons/car2.png";
-  static const String travel= "assets/icons/car.png";
+  static const String Scorpio = "assets/icons/car2.png";
+  static const String car= "assets/icons/car.png";
+  static const String jeep= "assets/icons/jeep.png";
+  static const String microBus= "assets/icons/microbus.jpeg";
+  static const String miniVan= "assets/icons/miniVan.jpeg";
+  static const String tempo= "assets/icons/tempo.png";
+  static const String sumo= "assets/icons/sumo.jpeg";
+  static const String truck= "assets/icons/truck.png";
+  static const String van= "assets/icons/van.png";
 }

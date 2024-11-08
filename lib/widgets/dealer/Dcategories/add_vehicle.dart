@@ -39,7 +39,7 @@ class AddVehicle extends StatelessWidget {
               height: 900,
               child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 6,
+                itemCount: 13,
                 itemBuilder: (_,index) {
 
                   return Padding(

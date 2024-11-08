@@ -12,20 +12,37 @@ import '../../../../utils/constants/image_strings.dart';
 import '../../../common widget/container/circular_container.dart';
 import '../../../common widget/image/t_rounded_images.dart';
 
+import 'package:flutter/material.dart';
+
 class TProductCardVertical extends StatelessWidget {
-  const TProductCardVertical({super.key});
+  final String imageUrl;
+  final String? defaultAssetImage;
+  final String name;
+  final String category;
+  final double price;
+  final String? discount; // Nullable discount text for conditional rendering
+  final VoidCallback onTap; // Custom onTap
+
+  const TProductCardVertical({
+    required this.imageUrl,
+    required this.name,
+    required this.category,
+    required this.price,
+    this.discount,
+    required this.onTap,
+    this.defaultAssetImage,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> Get.to(()=>ProductDetailScreen()),
-
+      onTap: onTap, // Trigger the custom onTap when tapped
       child: Container(
         width: 180,
         padding: EdgeInsets.all(1),
-
         decoration: BoxDecoration(
-          boxShadow: [TShadowStyle.verticalProductShadows],
+          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4, spreadRadius: 2)],
           color: TColors.white,
           borderRadius: BorderRadius.circular(20),
         ),
@@ -34,30 +51,32 @@ class TProductCardVertical extends StatelessWidget {
           children: [
             TCircularContainer(
               height: 180,
-              padding:8.0,
+              padding: 8.0,
               backgroundColor: TColors.light,
+              radius: 15,
               child: Stack(
                 children: [
-                  /// -- Thumbnail Image
-                  TRoundedImages(imageUrl: TImages.categories1, applyImageRadius: true,
+                  TRoundedImages(
+                    imageUrl: imageUrl,
+                    applyImageRadius: true,
                     height: 180,
-
+                    isNetworkingImage: true,
+                    defaultAssetImage: defaultAssetImage,
                     fit: BoxFit.cover,
                   ),
-
-                  /// -- Sale Tag
-                  Positioned(
-                    top: 12,
-                    child: TCircularContainer(
-                      radius: 8,
-                      backgroundColor: TColors.secondary.withOpacity(0.8),
-                      padding:8,
-                      child: Text('25%', style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.black)),
+                  if (discount != null && discount!.isNotEmpty) // Only show if discount exists
+                    Positioned(
+                      top: 12,
+                      child: TCircularContainer(
+                        radius: 8,
+                        backgroundColor: TColors.secondary.withOpacity(0.8),
+                        padding: 8,
+                        child: Text(
+                          discount!,
+                          style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.black),
+                        ),
+                      ),
                     ),
-                  ),
-
-
-
                 ],
               ),
             ),
@@ -66,51 +85,51 @@ class TProductCardVertical extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SmallText(text: 'FZ25 YAMAHA',
-                  fontWeight: FontWeight.w800,),
-                  SizedBox(height: 5),
+                  SmallText(
+                    text: name,
+                    fontWeight: FontWeight.w800,
+                  ),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
-                      Text( 'Bike',style:TextStyle(
-                        color: TColors.darkGrey,)),
-                      SizedBox(width: 5),
-                      Icon(Iconsax.verify5,color: TColors.primary,size: 10,)
+                      Text(
+                        category,
+                        style: TextStyle(color: TColors.darkGrey),
+                      ),
+                      const SizedBox(width: 5),
+                      Icon(Iconsax.verify5, color: TColors.primary, size: 10),
                     ],
                   ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BigText(
-                     text: '\$100',
-                      overflow: TextOverflow.ellipsis,
-                      fontWeight: FontWeight.bold,
-                    ),
-
-                    Container(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BigText(
+                        text: '\$$price',
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Container(
                         decoration: BoxDecoration(
-                            color: TColors.dark,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              bottomRight: Radius.circular(16),
-                            )
+                          color: TColors.dark,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12),
+                            bottomRight: Radius.circular(16),
+                          ),
                         ),
-
                         child: SizedBox(
                           width: 32,
-                            height: 32,
-                            child: Icon(Iconsax.add,color: TColors.white)))
-                  ],
-                ),
-
+                          height: 32,
+                          child: Icon(Iconsax.add, color: TColors.white),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ],
-
         ),
       ),
     );
   }
 }
-
-

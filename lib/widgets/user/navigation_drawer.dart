@@ -5,9 +5,11 @@ import 'package:vehicle_rental_frontendui/home_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/text/small_text.dart';
 import 'package:vehicle_rental_frontendui/widgets/homepage/search_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/navigation/profile_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/user/order/order_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/user_dasboard.dart';
 
 import '../../controller/user_controller/auth_controller.dart';
+import '../../model/dealer/vehicle_registration_model.dart';
 import '../../model/login_model.dart';
 import '../../storage/app_storage.dart';
 import '../../utils/constants/colors.dart';
@@ -23,6 +25,7 @@ class NavigationUser extends StatefulWidget {
 }
 class _NavigationUserState extends State<NavigationUser> {
   LoginModel? loginModel;
+  late VRegistrationBody vRegistration;
 
 
   @override
@@ -104,6 +107,16 @@ class _NavigationUserState extends State<NavigationUser> {
             onTap: () {
               Get.to(()=>UserDashboardPage());
             },
+
+
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: const Text('My Order'),
+            onTap: () {
+              // Get.to(()=>OrderPage(vehicle: ,));
+            },
+
 
           ),
           ListTile(

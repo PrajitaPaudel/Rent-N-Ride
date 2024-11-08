@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import '../utils/constants/app_constant.dart';
+import '../../utils/constants/app_constant.dart';
 
 
 class ImageService {
@@ -20,7 +20,7 @@ class ImageService {
 
     // Add the image file to the request
     request.files.add(await http.MultipartFile.fromPath(
-      'image', // This should match the backend's expected field name
+      'imageFiles', // This should match the backend's expected field name
       image.path,
       filename: '${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}',
     ));

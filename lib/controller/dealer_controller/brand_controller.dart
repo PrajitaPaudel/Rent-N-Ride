@@ -18,6 +18,7 @@ class BrandController extends GetxController {
     VehicleBrandModel(id: 6, name: "Ashok Leyland"),
     VehicleBrandModel(id: 7, name: "Mahindra"),
     VehicleBrandModel(id: 8, name: "Eicher"),
+    VehicleBrandModel(id: 9, name: "Other"),
     // Add more categories
   ];
 

@@ -3,20 +3,23 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class VRegistrationBody{
+  final int vehicleId;
   int categoryId;
   int modelId;
   int brandId;
   String price;
   String damage;
-  String available;
-  String popular;
+  bool available;
+  bool popular;
   List<File>? files;
   String description;
 
 
 
 
+
   VRegistrationBody({
+    required this.vehicleId,
     required this.categoryId,
     required this.modelId,
     required this.brandId,
@@ -25,12 +28,15 @@ class VRegistrationBody{
     required this.available,
     required this.popular,
     required this.files,
-   required this.description
+   required this.description,
+    // required this.remark,
+    // required this.userName,
 
 });
 
   Map<String,dynamic>toJson(){
     final Map<String,dynamic>data=new Map<String,dynamic>();
+       data["VehicleId"]=this.vehicleId;
       data["CategoryId"]=this.categoryId;
       data["ModelId"]=this.modelId;
       data["BrandId"]=this.brandId;
@@ -38,8 +44,10 @@ class VRegistrationBody{
       data["Damage"]=this.damage;
       data["Available"]=this.available;
       data["Popular"]=this.popular;
-      data["Remarks"]=this.description;
+      data['Detail']=this.description;
+      // data["Remarks"]=this.remark;
        data["ImagePath"]=this.files;
+       // data["UserName"]=this.userName;
       return data;
 
   }

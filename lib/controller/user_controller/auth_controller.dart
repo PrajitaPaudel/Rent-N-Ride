@@ -12,10 +12,14 @@ import '../../widgets/dealer/dealer_dashboard_page.dart';
 import '../../widgets/login/login_page.dart';
 
 class AuthController extends GetxController {
-
   var isLoading = false.obs;
+  var isLoggedIn = false.obs; // New observable for login status
 
-
+  @override
+  void onInit() {
+    super.onInit();
+    checkLoginStatus(); // Check login status when the controller initializes
+  }
 
   Future<void> login({String? username, String? password}) async {
     try {
@@ -31,6 +35,8 @@ class AuthController extends GetxController {
         AppStorage.saveUser(loginModel.toJson());
         AppStorage.saveUserType(loginModel.userType);
 
+        // Update the isLoggedIn status
+        isLoggedIn.value = true;
 
         // Navigate based on userType
         if (loginModel.userType == 'User') {
@@ -38,9 +44,6 @@ class AuthController extends GetxController {
         } else if (loginModel.userType == 'Dealer') {
           Get.to(DealerDashboardPage());
         }
-
-
-        // UserModel model = UserModel.fromJson(data);
       }
     } on Exception catch (e) {
       isLoading.value = false;
@@ -48,14 +51,8 @@ class AuthController extends GetxController {
       print(e.toString());
     }
   }
-  //................................
-  void logout() {
-    AppStorage.removeStorage();
-    Get.offAll(HomePage()); // Redirect to login page
-  }
 
-
-  Future<void>registration({
+  Future<void> registration({
     required String uname,
     required String fname,
     required String lname,
@@ -86,34 +83,33 @@ class AuthController extends GetxController {
       var data = await AuthService().register(body: signUpBody);
 
       if (data != null) {
-
         isLoading.value = false;
 
         // Save user details (optional)
-         AppStorage.saveIsLoggedin(true);
-        // AppStorage.saveUserType(data["userType"]);
+        AppStorage.saveIsLoggedin(true);
 
-        // Navigate based on userType
-        if (userType == 'User') {
-          Get.to(UserDashboardPage());
-        } else if (userType == 'Dealer') {
-          Get.to(DealerDashboardPage());
-        }
+        // Navigate to LoginPage
+        Get.to(LoginPage());
       } else {
         isLoading.value = false;
-        // Handle registration failure
-        Get.snackbar(
-            "Registration Failed", "Unable to register. Try again later.");
+        Get.snackbar("Registration Failed", "Unable to register. Try again later.");
       }
     } catch (e) {
       isLoading.value = false;
-      // Handle the error (network issue, backend issue, etc.)
       Get.snackbar("Error", e.toString());
       print(e);
     }
   }
 
+  void checkLoginStatus() {
+    // Check login status from AppStorage
+    isLoggedIn.value = AppStorage.getIsLoggedin();
+  }
 
-
-
+  void logout() {
+    AppStorage.removeStorage(); // Clear storage on logout
+    isLoggedIn.value = false; // Update login status
+    Get.offAll(HomePage()); // Redirect to home page
+  }
 }
+

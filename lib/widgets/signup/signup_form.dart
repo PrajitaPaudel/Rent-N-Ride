@@ -17,12 +17,16 @@ import 'package:vehicle_rental_frontendui/widgets/user/user_dasboard.dart';
 class TSignUpForm extends StatefulWidget {
   const TSignUpForm({super.key});
 
+
+
   @override
   State<TSignUpForm> createState() => _TSignUpFormState();
+
 }
 
 class _TSignUpFormState extends State<TSignUpForm> {
   var controller = Get.put(AuthController());
+
 
   // TextEditingControllers for each field
   var usernameController = TextEditingController();
@@ -100,9 +104,17 @@ class _TSignUpFormState extends State<TSignUpForm> {
       );
     }
   }
+  var  _isPasswordVisible = false;
+
+  @override
+  void initState(){
+    super.initState();
+    _isPasswordVisible = true;
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -170,15 +182,28 @@ class _TSignUpFormState extends State<TSignUpForm> {
                 labelText: TTexts.driverL, prefixIcon: Icon(Iconsax.card)),
           ),
           const SizedBox(height: 10.0),
-          TextFormField(
-            obscureText: true,
-            controller: passwordCController,
-            decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check),
-                labelText: TTexts.password,
-                suffixIcon: Icon(Iconsax.eye_slash)),
-          ),
-          const SizedBox(height: 15.0),
+
+
+    TextFormField(
+
+    obscureText:_isPasswordVisible, // Toggle visibility
+    controller: passwordCController,
+    decoration: InputDecoration(
+    prefixIcon: Icon(Iconsax.password_check),
+    labelText: TTexts.password,
+    suffixIcon: IconButton(
+      icon:_isPasswordVisible ?const  Icon(Icons.visibility_off,):const Icon(Icons.visibility,color: Colors.blue,),
+      onPressed: (){
+        setState(() {
+          _isPasswordVisible = !_isPasswordVisible;
+        });
+      },
+    ),
+
+    ),
+    ),
+
+    const SizedBox(height: 15.0),
           Obx(() => Row(
             children: [
               Expanded(

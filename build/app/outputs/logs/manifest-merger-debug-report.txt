@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:7:5-48:19
+INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:8:5-49:19
 MERGED from [:image_picker_android] C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [:image_picker_android] C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [:url_launcher_android] C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-14:19
@@ -20,11 +20,11 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\DE
 	android:name
 		INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
-INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
-INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
-INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
-MERGED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
+ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
+INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
+INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
+INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
+MERGED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
 MERGED from [:shared_preferences_android] C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\build\shared_preferences_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:image_picker_android] C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -60,15 +60,15 @@ INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\andr
 INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
 		INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
+		ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
 		INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
+		ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
 		INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-49:12
+		ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:1-50:12
 		INJECTED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\DELL\AndroidStudioProjects\vehicle_rental_frontendui\android\app\src\main\AndroidManifest.xml:1:11-69

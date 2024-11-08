@@ -24,17 +24,23 @@ class TLoginFrom extends StatefulWidget {
 
 class _TLoginFromState extends State<TLoginFrom> {
   var controller = Get.put(AuthController());
+  var usernameController = TextEditingController();
+  var passwordCController = TextEditingController();
 
+
+  var  _isPasswordVisible = false;
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
+    _isPasswordVisible = true;
   }
+
 
   @override
   Widget build(BuildContext context) {
-    var usernameController = TextEditingController();
-    var passwordCController = TextEditingController();
+
 
     void _login() {
       controller.login(
@@ -90,12 +96,20 @@ class _TLoginFromState extends State<TLoginFrom> {
                 ),
                 const SizedBox(height: 10.0),
                 TextFormField(
+                  obscureText: _isPasswordVisible,
                   controller: passwordCController,
-                  obscureText: true,
+
                   decoration: InputDecoration(
                       prefixIcon: Icon(Iconsax.password_check),
                       labelText: TTexts.password,
-                      suffixIcon: Icon(Iconsax.eye_slash)),
+                    suffixIcon: IconButton(
+                      icon:_isPasswordVisible ?const  Icon(Icons.visibility_off,):const Icon(Icons.visibility,color: Colors.blue,),
+                      onPressed: (){
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });
+                      },
+                    ),),
                 ),
                 const SizedBox(height: 5.0),
                 Row(
@@ -125,6 +139,7 @@ class _TLoginFromState extends State<TLoginFrom> {
                     CustomButton(
                       text: 'Create Account',
                       onTap: () => Get.to(() => Register()),
+
                       margin: EdgeInsets.all(40),
                     ),
                   ],

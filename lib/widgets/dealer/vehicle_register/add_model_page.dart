@@ -104,7 +104,7 @@ class AddModel extends StatelessWidget {
                         text: 'Next',
                         onTap: ()  {
 
-                          Get.to(() => VehicleRegisterPage());
+                          // Get.to(() => VehicleRegisterPage());
                         },
                         height: 50,
                         borderRadius: 50,

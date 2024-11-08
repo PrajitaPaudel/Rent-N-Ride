@@ -53,6 +53,7 @@ class VModelController extends GetxController {
     VehicleModel(id: 39, name: "Winger"),
     VehicleModel(id: 40, name: "Supro Van"),
     VehicleModel(id: 41, name: "Bolero Camper"),
+    VehicleModel(id: 42, name: "other"),
 
     // Add more categories
   ];

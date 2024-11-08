@@ -11,7 +11,7 @@ class TCategoresImage extends StatelessWidget {
     required this.image,
     required this.title,
     this.textColor=TColors.black,
-    this.backgroundColor=TColors.lightGrey,
+    this.backgroundColor=TColors.grey,
     this.onTap,
   });
 
@@ -31,6 +31,7 @@ class TCategoresImage extends StatelessWidget {
             Container(
               width: 56,
               height: 56,
+
 
               decoration: BoxDecoration(
                 color: backgroundColor,

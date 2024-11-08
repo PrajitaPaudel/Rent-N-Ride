@@ -149,7 +149,7 @@ class VehicleImageUpload extends StatelessWidget {
                         CustomButton(
                           text: 'Back',
                           onTap: () {
-                            Get.to(() => AddVehicle());
+                            // Get.to(() => AddVehicle());
                           },
                           height: 50,
                           borderRadius: 50,

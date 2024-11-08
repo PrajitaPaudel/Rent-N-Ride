@@ -25,7 +25,7 @@ class TBrandTextVerify extends StatelessWidget {
         Flexible(
           child: SmallText(
             text: title,
-            textColor: TColors.grey,
+            textColor: TColors.darkerGrey,
             textAlign: textAlign,
             fontWeight: FontWeight.bold,
 

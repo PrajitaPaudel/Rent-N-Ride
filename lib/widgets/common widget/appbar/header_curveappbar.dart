@@ -6,10 +6,11 @@ import '../container/curved_widget.dart';
 
 class THeaderAppBar extends StatelessWidget {
   const THeaderAppBar({
-    super.key, required this.text,  this.color=Colors.white,
+    super.key, required this.text,  this.color=Colors.white,  this.backgroundColor=TColors.subPrimary,
   });
   final String text;
   final Color color;
+  final Color backgroundColor;
   @override
   Widget build(BuildContext context) {
     return TCurvedWidget(
@@ -20,13 +21,13 @@ class THeaderAppBar extends StatelessWidget {
           height: 150,
           child: AppBar(
             centerTitle: true,
-            backgroundColor: TColors.subPrimary,
+            backgroundColor: backgroundColor,
             title: Text(
               text,
               style: TextStyle(
                 color: color,
                 fontFamily: 'poppins',
-                fontSize: 19,
+                fontSize: 22,
               ),
             ),
           ),

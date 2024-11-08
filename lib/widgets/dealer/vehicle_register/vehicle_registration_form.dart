@@ -15,17 +15,20 @@ import 'package:vehicle_rental_frontendui/model/dealer/vechicle_model.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/show_custom_snakebar.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/text/small_text.dart';
 import 'package:vehicle_rental_frontendui/widgets/dealer/dealer_dashboard_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/dealer/vehicle_register/edit_vehicle_registration.dart';
 
 import '../../../controller/dealer_controller/c_dropdown_controller.dart';
 import '../../../controller/dealer_controller/damage_dropdown_controller.dart';
 import '../../../model/dealer/category_model.dart';
+import '../../../model/dealer/vehicle_registration_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../common widget/button/Custom_button.dart';
 import '../../common widget/container/circular_container.dart';
 import '../../common widget/text/big_text.dart';
 
 class VRegistrationFrom extends StatefulWidget {
-  const VRegistrationFrom({super.key});
+  final VRegistrationBody? vRegistration;
+  const VRegistrationFrom({super.key, this.vRegistration,});
 
   @override
   State<VRegistrationFrom> createState() => _VRegistrationFromState();
@@ -33,6 +36,7 @@ class VRegistrationFrom extends StatefulWidget {
 
 class _VRegistrationFromState extends State<VRegistrationFrom> {
   var controller = Get.put(VehicleController());
+
 
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imagefiles = [];
@@ -44,15 +48,11 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
   final VDamageController vDamageController = Get.put(VDamageController());
   final AvailableController availableController =
   Get.put(AvailableController());
-  final PopularController popularController = Get.put(PopularController());
+  final PPopularController popularController = Get.put(PPopularController());
   var priceController = TextEditingController();
   var descriptionController = TextEditingController();
-  final UploaderController uploaderController = Get.put(UploaderController());
 
-  // List<CategoryModel> categories = [
-  //   CategoryModel(id: 1,name: "Fresh"),
-  //   CategoryModel(id: 2,name: "old")
-  // ];
+
 
   void _vehicleRegistration() {
     int categoryId = vCategoryController.selectedCategoryId.value;
@@ -60,21 +60,13 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
     int modelId = modelController.selectedModel.value;
     String price = priceController.text.trim();
     String damage = vDamageController.selectedDamage.value;
-    String available = availableController.selectedAvailableType.value;
-    String popular = popularController.selectedPopularType.value;
-    String description=descriptionController.text.trim();
+    bool available = availableController.selectedAvailableType.value;
+    bool popular = popularController.selectedPopularType.value;
+    String description = descriptionController.text.trim();
 
     if (price.isEmpty) {
       showCustomSnakeBar('Price is required', title: 'Price');
-    } else if (available.isEmpty) {
-      showCustomSnakeBar('Select Available or Not', title: 'Available');
-    } else if (popular.isEmpty) {
-      showCustomSnakeBar('Select Popular or Not', title: 'Popular');
-    }
-    else if (popular.isEmpty) {
-      showCustomSnakeBar('Select Popular or Not', title: 'Popular');
-    }else {
-      // Call the controller to register the vehicle
+    } else {
       controller.vregistration(
         categoryId: categoryId,
         brandId: brandId,
@@ -83,11 +75,12 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
         damage: damage,
         available: available,
         popular: popular,
-        images: imagefiles!, // Pass the images selected from the picker
-        description:description,
+        images: imagefiles!, // Images from picker
+        description: description,
       );
     }
   }
+
 
   Future<void> openImages() async {
     var pickedFiles = await imagePicker.pickMultiImage();
@@ -288,10 +281,10 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
                           color: TColors.darkerGrey,
                         ),
                         hintStyle: TextStyle(
-                          color: TColors.grey,
+                          color: TColors.darkerGrey,
                         ),
                         labelText: 'Price',
-                        hintText: '100',
+                        hintText: 'Select the price per day',
                         prefixIcon: Icon(Icons.monetization_on)),
                   ),
                   const SizedBox(height: 20),
@@ -347,81 +340,75 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
                   SizedBox(
                     height: 10,
                   ),
+                  // Available - Modified to boolean
                   Obx(
-                        () =>
-                        Row(
-                          children: [
-                            Expanded(
-                              child: RadioListTile(
-                                title: SmallText(
-                                    text: ' Available',
-                                    textColor: TColors.darkerGrey,
-                                    fontWeight: FontWeight.w600),
-                                value: 'Available',
-                                groupValue:
-                                availableController.selectedAvailableType.value,
-                                onChanged: (value) {
-                                  availableController.setAvailableType(value!);
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: RadioListTile(
-                                title: SmallText(
-                                  text: 'Not Available',
-                                  textColor: TColors.darkerGrey,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                value: 'notAvailable',
-                                groupValue:
-                                availableController.selectedAvailableType.value,
-                                onChanged: (value) {
-                                  availableController.setAvailableType(value!);
-                                },
-                              ),
-                            ),
-                          ],
+                        () => Row(
+                      children: [
+                        Expanded(
+                          child: RadioListTile<bool>(
+                            title: SmallText(
+                                text: 'Available',
+                                textColor: TColors.darkerGrey,
+                                fontWeight: FontWeight.w600),
+                            value: true,
+                            groupValue: availableController.selectedAvailableType.value,
+                            onChanged: (value) {
+                              availableController.setAvailableType(value!);
+                            },
+                          ),
                         ),
+                        Expanded(
+                          child: RadioListTile<bool>(
+                            title: SmallText(
+                                text: 'Not Available',
+                                textColor: TColors.darkerGrey,
+                                fontWeight: FontWeight.w600),
+                            value: false,
+                            groupValue: availableController.selectedAvailableType.value,
+                            onChanged: (value) {
+                              availableController.setAvailableType(value!);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+SizedBox(height: 10,),
+
+// Popular - Modified to boolean
                   Obx(
-                        () =>
-                        Row(
-                          children: [
-                            Expanded(
-                              child: RadioListTile(
-                                title: SmallText(
-                                    text: ' Popular',
-                                    textColor: TColors.darkerGrey,
-                                    fontWeight: FontWeight.w600),
-                                value: 'Available',
-                                groupValue:
-                                popularController.selectedPopularType.value,
-                                onChanged: (value) {
-                                  popularController.setPopularType(value!);
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: RadioListTile(
-                                title: SmallText(
-                                  text: 'Not Popular',
-                                  textColor: TColors.darkerGrey,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                value: 'notPopular',
-                                groupValue:
-                                popularController.selectedPopularType.value,
-                                onChanged: (value) {
-                                  popularController.setPopularType(value!);
-                                },
-                              ),
-                            ),
-                          ],
+                        () => Row(
+                      children: [
+                        Expanded(
+                          child: RadioListTile<bool>(
+                            title: SmallText(
+                                text: 'Popular',
+                                textColor: TColors.darkerGrey,
+                                fontWeight: FontWeight.w600),
+                            value: true,
+                            groupValue: popularController.selectedPopularType.value,
+                            onChanged: (value) {
+                              popularController.setPopularType(value!);
+                            },
+                          ),
                         ),
+                        Expanded(
+                          child: RadioListTile<bool>(
+                            title: SmallText(
+                                text: 'Not Popular',
+                                textColor: TColors.darkerGrey,
+                                fontWeight: FontWeight.w600),
+                            value: false,
+                            groupValue: popularController.selectedPopularType.value,
+                            onChanged: (value) {
+                              popularController.setPopularType(value!);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+
                   SizedBox(height: 20),
                   const SizedBox(height: 20),
                   Column(
@@ -438,6 +425,15 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
                           _vehicleRegistration();
                           print('button press');
                         },
+                      ),
+                      CustomButton(
+                        height: 50,
+                        borderRadius: 50,
+                        width: 150,
+                        color: TColors.subPrimary,
+                        text: "Edit",
+
+                         onTap: () => Get.to(() =>EditVRegistrationFrom( vRegistration:widget.vRegistration )),
                       ),
                       CustomButton(
                         height: 50,

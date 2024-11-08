@@ -12,23 +12,36 @@ class UserTypeController extends GetxController {
 
 
 class AvailableController extends GetxController {
-  // User type selection
-  var selectedAvailableType = ''.obs;
+  // Available type selection, now using bool
+  var selectedAvailableType = false.obs;
 
-  // Method to update the selected user type
-  void setAvailableType(String available) {
+  // Method to update the selected available type
+  void setAvailableType(bool available) {
     selectedAvailableType.value = available;
   }
 }
 
 
 
-class PopularController extends GetxController {
-  // User type selection
-  var selectedPopularType = ''.obs;
 
-  // Method to update the selected user type
-  void setPopularType(String popular) {
+class PPopularController extends GetxController {
+  // Popular type selection, now using bool
+  var selectedPopularType = false.obs;
+
+  // Method to update the selected popular type
+  void setPopularType(bool popular) {
     selectedPopularType.value = popular;
   }
 }
+
+
+class InsuranceController extends GetxController {
+  // Available type selection, now using bool
+  var selectedInsuranceType = false.obs;
+
+  // Method to update the selected available type
+  void setInsuranceType(bool yes) {
+    selectedInsuranceType.value = yes;
+  }
+}
+

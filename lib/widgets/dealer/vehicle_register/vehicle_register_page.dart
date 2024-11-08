@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/appbar/header_curveappbar.dart';
 import 'package:vehicle_rental_frontendui/widgets/dealer/vehicle_register/vehicle_registration_form.dart';
 
+import '../../../model/dealer/vehicle_registration_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../common widget/text/big_text.dart';
 import '../../common widget/text/small_text.dart';
 
 
 class VehicleRegisterPage extends StatelessWidget {
-  const VehicleRegisterPage({super.key});
+  final VRegistrationBody? vRegistration;
+  const VehicleRegisterPage({super.key,  this.vRegistration});
 
   @override
   Widget build(BuildContext context) {
