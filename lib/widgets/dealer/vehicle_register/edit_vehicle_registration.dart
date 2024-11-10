@@ -59,7 +59,7 @@ class _VRegistrationFromState extends State<EditVRegistrationFrom> {
   final VCategoryController vCategoryController = Get.put(
       VCategoryController());
   final BrandController brandController = Get.put(BrandController());
-  final VModelController modelController = Get.put(VModelController());
+  final VehicleModelController modelController = Get.put(VehicleModelController());
   final VDamageController vDamageController = Get.put(VDamageController());
   final AvailableController availableController =
   Get.put(AvailableController());
@@ -252,7 +252,7 @@ class _VRegistrationFromState extends State<EditVRegistrationFrom> {
 
 
                           // Category...........................................................................//
-                          DropdownButtonFormField<int>(
+                          Obx(() => DropdownButtonFormField<int>(
                             value: vCategoryController.selectedCategoryId.value,
                             decoration: InputDecoration(
                               labelText: "Select Vehicle Category",
@@ -260,25 +260,24 @@ class _VRegistrationFromState extends State<EditVRegistrationFrom> {
                             ),
                             onChanged: (int? newValue) {
                               if (newValue != null) {
-                                vCategoryController.setSelectedCategoryId(newValue);
+                                vCategoryController.selectedCategoryId.value = newValue;
                               }
                             },
                             items: vCategoryController.categories
-                                .map<DropdownMenuItem<int>>((
-                                VehicleCategoryModel category) {
+                                .map<DropdownMenuItem<int>>((VehicleCategoryModel category) {
                               return DropdownMenuItem<int>(
-                                value: category.id, // Send id as value
-                                child: Text(category.name), // Display name in dropdown
+                                value: category.categoryId, // Send id as value
+                                child: Text(category.vehicleCategoryName), // Display name in dropdown
                               );
                             }).toList(),
-                          ),
+                          )),
                           SizedBox(height: 20),
 
 
                           // Brand............................................................//
 
 
-                          DropdownButtonFormField<int>(
+                          Obx(() => DropdownButtonFormField<int>(
                             value: brandController.selectedBrandId.value,
                             decoration: InputDecoration(
                               labelText: "Select Vehicle Brand",
@@ -286,42 +285,43 @@ class _VRegistrationFromState extends State<EditVRegistrationFrom> {
                             ),
                             onChanged: (int? newValue) {
                               if (newValue != null) {
-                                brandController.setSelectedBrandId(newValue);
+                                brandController.selectedBrandId.value = newValue;
                               }
                             },
-                            items: brandController.brand
+                            items: brandController.brands
                                 .map<DropdownMenuItem<int>>((VehicleBrandModel brand) {
                               return DropdownMenuItem<int>(
-                                value: brand.id, // Send id as value
-                                child: Text(brand.name), // Display name in dropdown
+                                value: brand.brandId, // Send id as value
+                                child: Text(brand.vehicleBrandName), // Display name in dropdown
                               );
                             }).toList(),
-                          ),
+                          )),
+
                           const SizedBox(height: 20),
 
 
                           // Model.............................................................//
 
 
-                          DropdownButtonFormField<int>(
-                            value: modelController.selectedModel.value,
+                          Obx(() => DropdownButtonFormField<int>(
+                            value: modelController.selectedModelId.value,
                             decoration: InputDecoration(
                               labelText: "Select Vehicle Model",
                               border: OutlineInputBorder(),
                             ),
                             onChanged: (int? newValue) {
                               if (newValue != null) {
-                                modelController.setSelectedModelId(newValue);
+                                modelController.selectedModelId.value = newValue;
                               }
                             },
-                            items: modelController.model
+                            items: modelController.models
                                 .map<DropdownMenuItem<int>>((VehicleModel model) {
                               return DropdownMenuItem<int>(
-                                value: model.id, // Send id as value
-                                child: Text(model.name), // Display name in dropdown
+                                value: model.modelId, // Send modelId as value
+                                child: Text(model.vehicleModelName), // Display model name in dropdown
                               );
                             }).toList(),
-                          ),
+                          )),
 
 
                           const SizedBox(height: 20),

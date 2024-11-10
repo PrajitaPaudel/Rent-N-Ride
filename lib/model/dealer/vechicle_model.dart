@@ -1,20 +1,17 @@
 class VehicleModel {
-  int id;
-  String name;
+  final int modelId;
+  final String vehicleModelName;
 
-  VehicleModel({required this.id, required this.name});
+  VehicleModel({
+    required this.modelId,
+    required this.vehicleModelName,
+  });
 
+  // Factory method to create an instance from JSON
   factory VehicleModel.fromJson(Map<String, dynamic> json) {
     return VehicleModel(
-      id: json['id'],
-      name: json['name'],
+      modelId: json['modelId'],
+      vehicleModelName: json['vehicleModelName'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-    };
   }
 }

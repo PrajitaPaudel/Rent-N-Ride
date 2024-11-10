@@ -121,5 +121,43 @@ class VehicleController extends GetxController {
       Get.snackbar("Error", "Failed to update vehicle");
     }
   }
+
+
+
+  final DeleteVehicleService _deleteVehicleService = DeleteVehicleService();
+
+  Future<void> deleteVehicle(int vehicleId) async {
+    bool confirmDelete = await _showConfirmationDialog();
+    if (!confirmDelete) return;
+
+    try {
+      await _deleteVehicleService.deleteVehicle(vehicleId);
+      showCustomSnakeBar("Vehicle deleted successfully.", color: Colors.green,title: 'Success');
+      Get.to(() => DealerDashboardPage());
+    } catch (error) {
+      print("Failed to delete vehicle: $error");
+      showCustomSnakeBar("Failed to delete vehicle.", color: Colors.red);
+    }
+  }
+
+  Future<bool> _showConfirmationDialog() async {
+    return await Get.dialog<bool>(
+      AlertDialog(
+        title: Text("Confirm Deletion"),
+        content: Text("Are you sure you want to delete this vehicle?"),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: false),
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Get.back(result: true),
+            child: Text("Delete"),
+          ),
+        ],
+      ),
+    ) ??
+        false;
+  }
 }
 

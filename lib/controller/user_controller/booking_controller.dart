@@ -126,6 +126,11 @@ class BookingController extends GetxController {
       Get.snackbar('Error', 'Failed to load booking details');
     }
   }
+
+
+
+
+
   Future<void> confirmBooking(BookingConfirmationModel bookingConfirmation) async {
     final url = AppConstant.BASE_URL+AppConstant.Confirm_Booking+'${bookingConfirmation.bookingId}';
 
@@ -150,6 +155,7 @@ class BookingController extends GetxController {
       print("Error in confirming booking: $e");
     }
   }
+
 
 
 

@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ import 'package:vehicle_rental_frontendui/widgets/dealer/vehicle_register/edit_v
 
 import '../../../controller/dealer_controller/c_dropdown_controller.dart';
 import '../../../controller/dealer_controller/damage_dropdown_controller.dart';
+import '../../../controller/dealer_controller/get_latest_vehicle_id_controller.dart';
 import '../../../model/dealer/category_model.dart';
 import '../../../model/dealer/vehicle_registration_model.dart';
 import '../../../utils/constants/colors.dart';
@@ -36,6 +38,8 @@ class VRegistrationFrom extends StatefulWidget {
 
 class _VRegistrationFromState extends State<VRegistrationFrom> {
   var controller = Get.put(VehicleController());
+  final VehicleController _vehicleController = VehicleController();
+  final LatestVehicleController latestVehicleController = Get.put(LatestVehicleController());
 
 
   final ImagePicker imagePicker = ImagePicker();
@@ -44,7 +48,7 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
   final VCategoryController vCategoryController = Get.put(
       VCategoryController());
   final BrandController brandController = Get.put(BrandController());
-  final VModelController modelController = Get.put(VModelController());
+  final VehicleModelController modelController = Get.put(VehicleModelController());
   final VDamageController vDamageController = Get.put(VDamageController());
   final AvailableController availableController =
   Get.put(AvailableController());
@@ -55,9 +59,9 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
 
 
   void _vehicleRegistration() {
-    int categoryId = vCategoryController.selectedCategoryId.value;
-    int brandId = brandController.selectedBrandId.value;
-    int modelId = modelController.selectedModel.value;
+    int? categoryId = vCategoryController.selectedCategoryId.value;
+    int? brandId = brandController.selectedBrandId.value;
+    int? modelId = modelController.selectedModelId.value;
     String price = priceController.text.trim();
     String damage = vDamageController.selectedDamage.value;
     bool available = availableController.selectedAvailableType.value;
@@ -68,9 +72,9 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
       showCustomSnakeBar('Price is required', title: 'Price');
     } else {
       controller.vregistration(
-        categoryId: categoryId,
-        brandId: brandId,
-        modelId: modelId,
+        categoryId: categoryId??0,
+        brandId: brandId??0,
+        modelId: modelId??0,
         price: price,
         damage: damage,
         available: available,
@@ -201,7 +205,7 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
 
 
                   // Category...........................................................................//
-                  DropdownButtonFormField<int>(
+                  Obx(() => DropdownButtonFormField<int>(
                     value: vCategoryController.selectedCategoryId.value,
                     decoration: InputDecoration(
                       labelText: "Select Vehicle Category",
@@ -209,25 +213,24 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
                     ),
                     onChanged: (int? newValue) {
                       if (newValue != null) {
-                        vCategoryController.setSelectedCategoryId(newValue);
+                        vCategoryController.selectedCategoryId.value = newValue;
                       }
                     },
                     items: vCategoryController.categories
-                        .map<DropdownMenuItem<int>>((
-                        VehicleCategoryModel category) {
+                        .map<DropdownMenuItem<int>>((VehicleCategoryModel category) {
                       return DropdownMenuItem<int>(
-                        value: category.id, // Send id as value
-                        child: Text(category.name), // Display name in dropdown
+                        value: category.categoryId, // Send id as value
+                        child: Text(category.vehicleCategoryName), // Display name in dropdown
                       );
                     }).toList(),
-                  ),
+                  )),
                   SizedBox(height: 20),
 
 
                   // Brand............................................................//
 
 
-                  DropdownButtonFormField<int>(
+                  Obx(() => DropdownButtonFormField<int>(
                     value: brandController.selectedBrandId.value,
                     decoration: InputDecoration(
                       labelText: "Select Vehicle Brand",
@@ -235,42 +238,43 @@ class _VRegistrationFromState extends State<VRegistrationFrom> {
                     ),
                     onChanged: (int? newValue) {
                       if (newValue != null) {
-                        brandController.setSelectedBrandId(newValue);
+                        brandController.selectedBrandId.value = newValue;
                       }
                     },
-                    items: brandController.brand
+                    items: brandController.brands
                         .map<DropdownMenuItem<int>>((VehicleBrandModel brand) {
                       return DropdownMenuItem<int>(
-                        value: brand.id, // Send id as value
-                        child: Text(brand.name), // Display name in dropdown
+                        value: brand.brandId, // Send id as value
+                        child: Text(brand.vehicleBrandName), // Display name in dropdown
                       );
                     }).toList(),
-                  ),
+                  )),
+
                   const SizedBox(height: 20),
 
 
                   // Model.............................................................//
 
 
-                  DropdownButtonFormField<int>(
-                    value: modelController.selectedModel.value,
+                  Obx(() => DropdownButtonFormField<int>(
+                    value: modelController.selectedModelId.value,
                     decoration: InputDecoration(
                       labelText: "Select Vehicle Model",
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (int? newValue) {
                       if (newValue != null) {
-                        modelController.setSelectedModelId(newValue);
+                        modelController.selectedModelId.value = newValue;
                       }
                     },
-                    items: modelController.model
+                    items: modelController.models
                         .map<DropdownMenuItem<int>>((VehicleModel model) {
                       return DropdownMenuItem<int>(
-                        value: model.id, // Send id as value
-                        child: Text(model.name), // Display name in dropdown
+                        value: model.modelId, // Send modelId as value
+                        child: Text(model.vehicleModelName), // Display model name in dropdown
                       );
                     }).toList(),
-                  ),
+                  )),
 
 
                   const SizedBox(height: 20),
@@ -441,7 +445,11 @@ SizedBox(height: 10,),
                         width: 150,
                         color: TColors.subPrimary,
                         text: "Cancel",
-                        onTap: () => Get.to(() => DealerDashboardPage()),
+                        onTap: () {
+
+                            _vehicleController.deleteVehicle( latestVehicleController.latestVehicleId.value,);
+
+                        },
                       ),
                     ],
                   ),

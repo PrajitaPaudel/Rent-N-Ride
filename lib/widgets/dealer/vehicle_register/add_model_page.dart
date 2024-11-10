@@ -19,7 +19,7 @@ class AddModel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final VModelController modelController  = Get.put(VModelController());
+    // final VModelController modelController  = Get.put(VModelController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

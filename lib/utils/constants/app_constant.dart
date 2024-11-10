@@ -8,7 +8,7 @@ class AppConstant{
    static const String IMAGE_UPLOAD_URL="";
   static const String IMAGE_BASE_URL = 'api/Vehicle/images/';
   static const String Add_Vehicle="api/Vehicle/AddVehicle";
-  static const String Get_All_Vehicle="api/Vehicle/GetVehicles";
+  static const String Get_All_Vehicle="api/Vehicle/GetAvailableVehicles";
   static const String Popular_Vehicle="api/Vehicle/GetPopularVehicles";
   static const String Vehicle_Category="api/Vehicle/GetVehiclesByCategory/";
   static const String Latest_VehicleId="api/Vehicle/GetLatestVehicleId";
@@ -17,7 +17,15 @@ class AppConstant{
   static const String Update_Booking="api/Booking/UpdateBooking/";
   static const String Booking_Total="api/BookingConfirmation/GetTotalAmount/";
   static const String Confirm_Booking="api/BookingConfirmation/ConfirmBooking/";
+  static const String Damage_Url="api/ReturnConfirmation/GetTotalAmount/";
+  static const String Damage_Payment="api/ReturnConfirmation/ConfirmReturn/";
   static const String Get_All_Booking="api/BookingConfirmation/GetBookingConfirmationDetails/";
+  static const String Return_Booking="api/Return/AddReturn";
+  static const String Delete_Booking="api/Booking/DeleteBooking/";
+  static const String Delete_Vehicle="api/Vehicle/DeleteVehicle/";
+  static const String Get_Categories="api/Category/GetVehicleCategories";
+  static const String Get_Brand="api/VehicleBrand/GetVehicleBrands";
+  static const String Get_Model="api/VehicleModel/GetVehicleModels";
   static const String UserName="";
   static const String NUMBER="";
   static const String PASSWORD="";

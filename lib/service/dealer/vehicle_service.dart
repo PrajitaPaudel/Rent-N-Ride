@@ -104,3 +104,28 @@ Future<dynamic> updateVehicle(VRegistrationBody vehicle, List<File> imageFiles) 
     throw Exception("Error: ${e.toString()}");
   }
 }
+
+
+
+class DeleteVehicleService {
+  Future<void> deleteVehicle(int vehicleId) async {
+    final String url = '${AppConstant.BASE_URL}${AppConstant.Delete_Vehicle}$vehicleId';
+
+    try {
+      final response = await http.delete(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        print("Vehicle deleted successfully");
+      } else {
+        print("Failed to delete vehicle: ${response.body}");
+        throw Exception("Failed to delete vehicle");
+      }
+    } catch (error) {
+      print("Error: $error");
+      throw error;
+    }
+  }
+}

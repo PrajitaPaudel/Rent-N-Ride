@@ -4,8 +4,11 @@ import 'package:get/get.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/appbar/header_curveappbar.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/container/circular_container.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/text/small_text.dart';
+import 'package:vehicle_rental_frontendui/widgets/user/return_booking/return_booking_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/user_dasboard.dart';
 import '../../../controller/user_controller/booking_controller.dart';
+import '../../../controller/user_controller/return_booking_controller.dart';
+import '../../../model/user/booking_model.dart';
 import '../../common widget/button/Custom_button.dart';
 import '../../common widget/image/t_rounded_images.dart';
 
@@ -14,8 +17,9 @@ import '../../common widget/image/t_rounded_images.dart';
 
 class GetAllBooking extends StatefulWidget {
   final int bookingId;
+  final BookingModel? booking;
 
-  const GetAllBooking({required this.bookingId});
+  const GetAllBooking({required this.bookingId, this.booking});
 
   @override
   _GetAllBookingState createState() => _GetAllBookingState();
@@ -23,6 +27,7 @@ class GetAllBooking extends StatefulWidget {
 
 class _GetAllBookingState extends State<GetAllBooking> {
   final BookingController bookingController = Get.put(BookingController());
+  final ReturnController _returnController = ReturnController();
   final defaultImageUrl = "assets/logos/logo-white.png";
 
   @override
@@ -214,16 +219,17 @@ class _GetAllBookingState extends State<GetAllBooking> {
                       CustomButton(
                         // color:  Colors.blueGrey.shade700,
                         width: 400,
-                        text: "Return",
+                        text: "Return Booking",
                         onTap: () => {
-                          Get.to(()=>UserDashboardPage()),
+                          Get.to(()=>ReturnPage( bookingId:widget.bookingId,)),
                         },
                       ),CustomButton(
                         // color:  Colors.blueGrey.shade700,
                         width: 400,
                         text: "Cancel Booking",
                         onTap: () => {
-                          Get.to(()=>UserDashboardPage()),
+                          _returnController.deleteBooking(widget.bookingId),
+
                         },
                       ),
                       CustomButton(
