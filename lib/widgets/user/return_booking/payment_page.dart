@@ -71,7 +71,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SmallText(
-                                    text: 'Rental Charge:',
+                                    text: 'TotalAmountBeforeFees:',
                                     fontWeight: FontWeight.bold,
                                     size: 17,
                                   ),
@@ -87,7 +87,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SmallText(
-                                    text: 'Total Before Discount:',
+                                    text: 'Total Late Fees:',
                                     fontWeight: FontWeight.bold,
                                     size: 17,
                                   ),
@@ -103,7 +103,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SmallText(
-                                    text: 'Discount:',
+                                    text: 'DamageFee',
                                     fontWeight: FontWeight.bold,
                                     size: 17,
                                   ),

@@ -12,7 +12,7 @@ import 'package:vehicle_rental_frontendui/widgets/common%20widget/container/back
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/text/big_text.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/appbar/custom_app_bar.dart';
 import 'package:vehicle_rental_frontendui/widgets/homepage/banner_slider.dart';
-import 'package:vehicle_rental_frontendui/widgets/navigation/profile_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/navigation/profile/profile_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/navigation_drawer.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/product_details/product_detail_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/product_details/widget/product_card_vertical.dart';
@@ -45,6 +45,7 @@ class UserDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final CategoryController categoryController = Get.put(CategoryController());
     final PopularController popularController = Get.put(PopularController());
+    String defaultImageUrl = "assets/logos/logo-white.png";
 
     return Scaffold(
       key: _scaffoldKey,
@@ -130,7 +131,7 @@ class UserDashboardPage extends StatelessWidget {
                     popularController.popularModel.value.values!.isEmpty) {
                   return Center(child: Text('No Data available'));
                 } else {
-                  const String defaultImageUrl = "assets/logos/logo-white.png";
+
 
                   return TGridLayout(
                     itemCount: popularController.popularModel.value.values!.length,

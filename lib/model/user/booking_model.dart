@@ -1,7 +1,6 @@
 
 import 'dart:io';
-// Define the Vehicle model class
-import '../../widgets/dealer/Dcategories/vehicle.dart';
+
 
 class BookingModel {
     int? id;
@@ -16,6 +15,7 @@ class BookingModel {
   final String? billingAddress;
   final bool insuranceRequired;
   final String? specialRequests;
+   final String? userId;
 
 
   // Constructor
@@ -26,7 +26,7 @@ class BookingModel {
     this.files,
     required this.place,
     this.vehicleId,
-
+     this.userId,
     required this.phoneNumber,
     this.email,
     this.address,
@@ -53,6 +53,7 @@ class BookingModel {
     data['BillingAddress']= this.billingAddress;
     data['InsuranceRequired']= this.insuranceRequired;
     data['SpecialRequests']= this.specialRequests;
+    data['UserId']= this.userId;
 
     return data;
   }

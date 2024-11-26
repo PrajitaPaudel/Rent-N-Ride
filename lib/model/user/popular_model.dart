@@ -37,6 +37,7 @@ class Vehicle {
  DateTime? startDate; // Add start date field
    DateTime? endDate; // Add end date field
   bool? insuranceRequired;
+  String? userId;
 
   Vehicle({
     this.vehicleId,
@@ -57,6 +58,7 @@ class Vehicle {
      this.startDate,
      this.endDate,
      this.insuranceRequired,
+    this.userId,
 
   });
 
@@ -75,6 +77,7 @@ class Vehicle {
     damage = json['damage'];
     available = json['available'];
     modelId = json['modelId'];
+    userId = json['userId'];
     model = json['model'] != null ? Model.fromJson(json['model']) : null;
     brand = json['brand'] != null ? Brand.fromJson(json['brand']) : null;
     category = json['category'] != null ? Category.fromJson(json['category']) : null;
@@ -143,12 +146,14 @@ class Model {
 }
 
 class Brand {
+  int? brandId;
   String? vehicleBrandName;
 
-  Brand({this.vehicleBrandName});
+  Brand({this.vehicleBrandName,this.brandId});
 
   Brand.fromJson(Map<String, dynamic> json) {
     vehicleBrandName = json['vehicleBrandName'];
+    brandId=json['brandId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -159,17 +164,38 @@ class Brand {
 }
 
 class Category {
+  int? categoryId;
   String? vehicleCategoryName;
 
-  Category({this.vehicleCategoryName});
+  Category({this.vehicleCategoryName,this.categoryId});
 
   Category.fromJson(Map<String, dynamic> json) {
     vehicleCategoryName = json['vehicleCategoryName'];
+    categoryId=json['categoryId'];
   }
+
+
 
   Map<String, dynamic> toJson() {
     return {
       'vehicleCategoryName': vehicleCategoryName,
     };
+  }
+}
+
+
+class AllVehicleModel {
+  int totalCount;
+  List<Vehicle> vehicles;
+
+  AllVehicleModel({required this.totalCount, required this.vehicles});
+
+  factory AllVehicleModel.fromJson(Map<String, dynamic> json) {
+    return AllVehicleModel(
+      totalCount: json['totalCount'] ?? 0,
+      vehicles: (json['vehicles']['\$values'] as List)
+          .map((vehicle) => Vehicle.fromJson(vehicle))
+          .toList(),
+    );
   }
 }

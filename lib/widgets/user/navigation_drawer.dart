@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vehicle_rental_frontendui/home_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/common%20widget/menu/menu_item.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/text/small_text.dart';
 import 'package:vehicle_rental_frontendui/widgets/homepage/search_page.dart';
-import 'package:vehicle_rental_frontendui/widgets/navigation/profile_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/navigation/profile/profile_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/user/order/booking_history_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/order/order_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/user/return_booking/payment_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/user_dasboard.dart';
+import 'package:vehicle_rental_frontendui/widgets/user/user_rental_history_page.dart';
 
 import '../../controller/user_controller/auth_controller.dart';
 import '../../model/dealer/vehicle_registration_model.dart';
@@ -14,7 +18,9 @@ import '../../model/login_model.dart';
 import '../../storage/app_storage.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
+import '../common widget/verticle_order_containter.dart';
 import '../dealer/dealer_dashboard_page.dart';
+import '../signup/setting_page.dart';
 import 'order/get_all_booking_page.dart';
 
 
@@ -28,7 +34,7 @@ class NavigationUser extends StatefulWidget {
 class _NavigationUserState extends State<NavigationUser> {
   LoginModel? loginModel;
   late VRegistrationBody vRegistration;
-  int bookingId=30;
+  int bookingId=10;
 
 
   @override
@@ -76,7 +82,7 @@ class _NavigationUserState extends State<NavigationUser> {
                       SmallText(text: loginModel?.lastName?? 'Dhakal' ),
                     ],
                   ),
-                  SmallText(text: loginModel?.emailId??"ava123@gmail.com")
+                  SmallText(text: loginModel?.email??"ava123@gmail.com")
                 ],
               ),
 
@@ -112,20 +118,36 @@ class _NavigationUserState extends State<NavigationUser> {
             leading: Icon(Icons.settings),
             title: Text('Settings'),
             onTap: () {
-              Get.to(()=>UserDashboardPage());
+       String userId=AppStorage.getUserId();
+              Get.to(()=>UpdateUserPage(userId: userId,));
+                  //VerticalContainer());
             },
 
 
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: const Text('My Order'),
+            title: const Text('My Booking'),
             onTap: () {
-                Get.to(()=>GetAllBooking(bookingId:bookingId ,));
+              Get.to(()=>UserBookingHistoryPage());
+                 // Get.to(()=>GetAllBooking(bookingId:bookingId ,));
+              // Get.to(()=>PaymentPage(returnId: 13, bookingId: 9 ,));
             },
 
 
           ),
+          ListTile(
+            leading: Icon(Icons.history),
+            title: const Text('Rental History'),
+            onTap: () {
+              // Get.to(()=>GetAllBooking(bookingId:bookingId ,));
+
+               Get.to(()=>UserRentalHistoryPage());
+            },
+
+
+          ),
+
           ListTile(
             leading: Icon(Icons.logout_outlined),
             title: Text('Logout'),

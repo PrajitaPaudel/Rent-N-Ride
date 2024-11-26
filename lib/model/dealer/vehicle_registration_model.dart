@@ -13,6 +13,7 @@ class VRegistrationBody{
   bool popular;
   List<File>? files;
   String description;
+  String? userId;
 
 
 
@@ -29,7 +30,7 @@ class VRegistrationBody{
     required this.popular,
     required this.files,
    required this.description,
-    // required this.remark,
+    required this.userId,
     // required this.userName,
 
 });
@@ -45,7 +46,7 @@ class VRegistrationBody{
       data["Available"]=this.available;
       data["Popular"]=this.popular;
       data['Detail']=this.description;
-      // data["Remarks"]=this.remark;
+       data["UserId"]=this.userId;
        data["ImagePath"]=this.files;
        // data["UserName"]=this.userName;
       return data;

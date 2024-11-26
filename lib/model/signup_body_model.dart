@@ -45,3 +45,42 @@ Map<String,dynamic> toJson(){
 }
 
 }
+
+
+class UserUpdateModel {
+  String? userName;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? contactNo;
+  String? address;
+  String? driverLicInfo;
+  String? currentPassword;
+  String? newPassword;
+
+  UserUpdateModel({
+    this.userName,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.contactNo,
+    this.address,
+    this.driverLicInfo,
+    this.currentPassword,
+    this.newPassword,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      "UserName": userName,
+      "FirstName": firstName,
+      "LastName": lastName,
+      "Email": email,
+      "ContactNo": contactNo,
+      "Address": address,
+      "DriverLicInfo": driverLicInfo,
+      "CurrentPassword": currentPassword,
+      "NewPassword": newPassword,
+    };
+  }
+}

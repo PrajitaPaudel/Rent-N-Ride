@@ -1,5 +1,36 @@
 
+class BookingResponse {
+  List<BookingDetails>? values;
 
+  BookingResponse({this.values});
+
+  factory BookingResponse.fromJson(Map<String, dynamic> json) {
+    return BookingResponse(
+      values: (json['\$values'] as List<dynamic>?)
+          ?.map((item) => BookingDetails.fromJson(item as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+}
+
+class BookingDetails {
+  BookingConfirmationInfo? bookingConfirmationInfo;
+  BookingInfo? bookingInfo;
+
+  BookingDetails({this.bookingConfirmationInfo, this.bookingInfo});
+
+  factory BookingDetails.fromJson(Map<String, dynamic> json) {
+    return BookingDetails(
+      bookingConfirmationInfo: json['bookingConfirmationInfo'] != null
+          ? BookingConfirmationInfo.fromJson(
+          json['bookingConfirmationInfo'])
+          : null,
+      bookingInfo: json['bookingInfo'] != null
+          ? BookingInfo.fromJson(json['bookingInfo'])
+          : null,
+    );
+  }
+}
 class BookingConfirmationInfo {
   int? id;
   double? totalAmount;
@@ -72,6 +103,8 @@ class BookingInfo {
       vehicle: Vvehicle.fromJson(json['vehicle']),
     );
   }
+
+
 }
 
 class Vvehicle {

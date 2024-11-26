@@ -113,7 +113,7 @@ class _OrderPageState extends State<OrderPage> {
       endDate: endDate!,
       place:address ,
       vehicleId: widget.vehicle.vehicleId,
-      email:loginModel?.emailId ?? 'No email' ,
+      email:loginModel?.email ?? 'No email' ,
       phoneNumber: phoneNumber,
       // Replace with actual user email if needed
       address: address,

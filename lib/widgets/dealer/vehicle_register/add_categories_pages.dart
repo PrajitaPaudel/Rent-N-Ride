@@ -101,7 +101,7 @@ class AddCategories extends StatelessWidget {
                         text: 'Next',
                         onTap: ()  {
 
-                          Get.to(() => AddBrandPage());
+                          // Get.to(() => AddBrandPage());
                         },
                         height: 50,
                         borderRadius: 50,

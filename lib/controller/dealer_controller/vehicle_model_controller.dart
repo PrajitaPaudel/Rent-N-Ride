@@ -1,15 +1,23 @@
 
 
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vehicle_rental_frontendui/model/dealer/brand_model.dart';
+import 'package:vehicle_rental_frontendui/widgets/admin/display/display_model.dart';
 
-import '../../model/dealer/category_model.dart';
+
+
 import '../../model/dealer/vechicle_model.dart';
 
-import 'package:get/get.dart';
+
 
 import '../../service/dealer/categories_service.dart';
+import '../../storage/app_storage.dart';
+import '../../utils/constants/colors.dart';
+import '../../widgets/admin/display/admin_dashboard_page.dart';
+import '../../widgets/admin/display/display_brand.dart';
+import '../../widgets/common widget/show_custom_snakebar.dart';
+import '../../widgets/dealer/dealer_dashboard_page.dart';
 
 class VehicleModelController extends GetxController {
   final VehicleModelService modelService = VehicleModelService();
@@ -17,11 +25,13 @@ class VehicleModelController extends GetxController {
   var models = <VehicleModel>[].obs;
   var isLoading = true.obs;
   var selectedModelId = Rxn<int>();
+  var currentBrand = Rxn<VehicleModel>();
+  final userType = AppStorage.getUserType();
 
   @override
   void onInit() {
     super.onInit();
-    loadModels();  // Load models when the controller initializes
+    loadModels(); // Load models when the controller initializes
   }
 
   void loadModels() async {
@@ -35,7 +45,98 @@ class VehicleModelController extends GetxController {
 
   void selectModel(int id) {
     selectedModelId.value = id;
-    print('Selected model ID: $id');  // For debugging
+    print('Selected model ID: $id'); // For debugging
+  }
+
+
+  Future<void> loadModelDetails(int id) async {
+    isLoading(true);
+    try {
+      currentBrand.value = await modelService.fetchModelById(id);
+    } catch (e) {
+      print("Error loading Model details: $e");
+    } finally {
+      isLoading(false);
+    }
+  }
+
+
+  Future<void> addVehicleModel(String modelName) async {
+    VehicleModel newModel = VehicleModel(
+      vehicleModelName: modelName,);
+    try {
+      await modelService.addVehicleModel(newModel);
+      showCustomSnakeBar('Category add Successfully', title: 'Success',
+          color: TColors.success);
+      if (userType == 'Admin') {
+        Get.to(() => AdminDashboardPage());
+      }else {
+        Get.to(() => DealerDashboardPage());
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+
+  Future<void> updateVehicleModel(int? modelId, String vehicleModelName) async {
+    VehicleModel updatedBrand = VehicleModel(
+        modelId: modelId,
+        vehicleModelName: vehicleModelName);
+
+    try {
+      await modelService.updateVehicleModel(modelId, updatedBrand);
+      if (userType == 'Admin') {
+        Get.to(() => AdminDashboardPage());
+      }else {
+        Get.to(() => DealerDashboardPage());
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+
+  final DeleteBrandService _deleteModelService = DeleteBrandService();
+
+  Future<void> deleteModel(int? modelId) async {
+    bool confirmDelete = await _showConfirmationDialog();
+    if (!confirmDelete) return;
+
+    try {
+      await _deleteModelService.deleteModel(modelId!);
+      showCustomSnakeBar("Vehicle Model deleted successfully.", color: Colors.green,title: 'Success');
+      if (userType == 'Admin') {
+        Get.to(() => AdminDashboardPage());
+      }else {
+        Get.to(() => DealerDashboardPage());
+      }
+    } catch (error) {
+      print("Failed to delete vehicle Model: $error");
+      showCustomSnakeBar("Failed to delete vehicle Model.", color: Colors.red);
+    }
+  }
+
+
+
+  Future<bool> _showConfirmationDialog() async {
+    return await Get.dialog<bool>(
+      AlertDialog(
+        title: Text("Confirm Deletion"),
+        content: Text("Are you sure you want to delete this Brand?"),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(result: false),
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () => Get.back(result: true),
+            child: Text("Delete"),
+          ),
+        ],
+      ),
+    ) ??
+        false;
   }
 }
 

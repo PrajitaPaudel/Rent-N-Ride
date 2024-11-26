@@ -8,6 +8,8 @@ import '../../utils/constants/colors.dart';
 import '../common widget/appbar/custom_app_bar.dart';
 import '../homepage/search_page.dart';
 import '../user/navigation_drawer.dart';
+import 'dealer_navigation_drawer.dart';
+import 'display_dealer/display_dealer_vehicle_page.dart';
 import 'order/cancel_order.dart';
 import 'order/deliver_order.dart';
 import 'order/new_order.dart';
@@ -28,7 +30,7 @@ class _DealerDashboardPageState extends State<DealerDashboardPage> with TickerPr
     TabController tabController=TabController(length: 4, vsync: this);
     return Scaffold(
       key:_scaffoldKey, // Assign the scaffold key here
-      drawer:  NavigationUser(),
+      drawer:  DNavigationUser(),
       backgroundColor: TColors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -76,10 +78,12 @@ class _DealerDashboardPageState extends State<DealerDashboardPage> with TickerPr
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  NewOrder(),
-                  PendingOrder(),
-                  DeliverOrder(),
-                  CancelledOrder(),
+                   NewOrder(),
+                  DealerVehiclePage(),
+                  DealerBookVehiclePage(),
+                  DealerBookVehiclePage(),
+
+
                 ],
 
               ),

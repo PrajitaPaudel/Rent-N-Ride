@@ -31,6 +31,7 @@ class TProductMetaData extends StatelessWidget {
   final String status;
   final String category;
   final String damages;
+  final Color? color;
   final String description;
   final int reviewCount;
   final VoidCallback onCheckout;
@@ -50,7 +51,7 @@ class TProductMetaData extends StatelessWidget {
     required this.description,
     required this.reviewCount,
     required this.onCheckout,
-    required this.onViewReviews, this.defaultAssetImage,
+    required this.onViewReviews, this.defaultAssetImage, this.color,
   }) : super(key: key);
 
   @override
@@ -98,7 +99,7 @@ class TProductMetaData extends StatelessWidget {
         SizedBox(height: 32),
         SizedBox(
           width: double.infinity,
-          child: CustomButton(text: 'CheckOut', onTap: onCheckout),
+          child: CustomButton(text: 'CheckOut', onTap: onCheckout,color:color??TColors.primary,),
         ),
         SizedBox(height: 32),
         BigText(text: "Description", fontWeight: FontWeight.w800),

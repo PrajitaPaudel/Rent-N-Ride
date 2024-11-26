@@ -8,12 +8,15 @@ import 'package:vehicle_rental_frontendui/service/auth_service.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/text_strings.dart';
 import '../common widget/button/Custom_button.dart';
-import '../common widget/show_custom_snakebar.dart';
+
 import '../common widget/text/small_text.dart';
-import '../dealer/dealer_dashboard_page.dart';
+
 import '../signup/register_page.dart';
-import '../user/user_dasboard.dart';
+
 import 'package:get/get_core/src/get_main.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class TLoginFrom extends StatefulWidget {
   const TLoginFrom({super.key});
@@ -26,60 +29,48 @@ class _TLoginFromState extends State<TLoginFrom> {
   var controller = Get.put(AuthController());
   var usernameController = TextEditingController();
   var passwordCController = TextEditingController();
+  var _isPasswordVisible = false;
+  bool rememberMe = false;
 
-
-  var  _isPasswordVisible = false;
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     _isPasswordVisible = true;
+    _loadSavedCredentials();
   }
 
+  Future<void> _loadSavedCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      usernameController.text = prefs.getString('username') ?? '';
+      passwordCController.text = prefs.getString('password') ?? '';
+      rememberMe = prefs.getBool('rememberMe') ?? false;
+    });
+  }
+
+  Future<void> _saveCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (rememberMe) {
+      await prefs.setString('username', usernameController.text.trim());
+      await prefs.setString('password', passwordCController.text.trim());
+      await prefs.setBool('rememberMe', true);
+    } else {
+      await prefs.remove('username');
+      await prefs.remove('password');
+      await prefs.setBool('rememberMe', false);
+    }
+  }
+
+  void _login() {
+    controller.login(
+      username: usernameController.text.trim(),
+      password: passwordCController.text.trim(),
+    );
+    _saveCredentials(); // Save credentials based on "Remember Me"
+  }
 
   @override
   Widget build(BuildContext context) {
-
-
-    void _login() {
-      controller.login(
-          username: usernameController.text.trim(),
-          password: passwordCController.text.trim());
-
-      // var authController=Get.find<AuthController>();
-      //
-      // String uname =usernameController.text.trim();
-      // String password =passwordCController.text.trim();
-      //
-      //
-      // if(uname.isEmpty){
-      //   showCustomSnakeBar('Type your user name',title: "uname");
-      // }else if (password.length<6){
-      //   showCustomSnakeBar('password is less than 6',title: "password");
-      //
-      // }
-      // else{
-      //
-      //
-      //   authController.login(uname,password).then((status){
-      //     if(status.isSuccess){
-      //       print("Success registration");
-      //       String userType = authController.userType;
-      //       if (userType == 'User') {
-      //         Get.to(() => UserDashboardPage());
-      //       } else if (userType == 'Dealer') {
-      //         Get.to(() => DealerDashboardPage());
-      //       }
-      //     }else{
-      //       showCustomSnakeBar(status.message);
-      //     }
-      //
-      //   });
-      //
-      // }
-    }
-
     return Form(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 17),
@@ -98,25 +89,31 @@ class _TLoginFromState extends State<TLoginFrom> {
                 TextFormField(
                   obscureText: _isPasswordVisible,
                   controller: passwordCController,
-
                   decoration: InputDecoration(
-                      prefixIcon: Icon(Iconsax.password_check),
-                      labelText: TTexts.password,
+                    prefixIcon: Icon(Iconsax.password_check),
+                    labelText: TTexts.password,
                     suffixIcon: IconButton(
-                      icon:_isPasswordVisible ?const  Icon(Icons.visibility_off,):const Icon(Icons.visibility,color: Colors.blue,),
-                      onPressed: (){
+                      icon: _isPasswordVisible
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility, color: Colors.blue),
+                      onPressed: () {
                         setState(() {
                           _isPasswordVisible = !_isPasswordVisible;
                         });
                       },
-                    ),),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 5.0),
                 Row(
                   children: [
                     Checkbox(
-                      value: true,
-                      onChanged: (value) {},
+                      value: rememberMe,
+                      onChanged: (value) {
+                        setState(() {
+                          rememberMe = value!;
+                        });
+                      },
                     ),
                     SmallText(
                       text: TTexts.rememberMe,
@@ -129,9 +126,8 @@ class _TLoginFromState extends State<TLoginFrom> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CustomButton(
-                      text: 'login',
+                      text: 'Login',
                       onTap: () {
-                        print("Buttom is press");
                         _login();
                       },
                       margin: EdgeInsets.all(40),
@@ -139,7 +135,6 @@ class _TLoginFromState extends State<TLoginFrom> {
                     CustomButton(
                       text: 'Create Account',
                       onTap: () => Get.to(() => Register()),
-
                       margin: EdgeInsets.all(40),
                     ),
                   ],
@@ -148,9 +143,11 @@ class _TLoginFromState extends State<TLoginFrom> {
             ),
             Obx(() => controller.isLoading.value == true
                 ? Center(
-                    child: CircularProgressIndicator(color: Colors.red,),
-                  )
-                : Container())
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            )
+                : Container()),
           ],
         ),
       ),

@@ -1,8 +1,10 @@
 
 import 'package:get/get.dart';
 import 'package:vehicle_rental_frontendui/home_page.dart';
+import 'package:vehicle_rental_frontendui/navigation_menu.dart';
 import 'package:vehicle_rental_frontendui/service/auth_service.dart';
 import 'package:vehicle_rental_frontendui/storage/app_storage.dart';
+import 'package:vehicle_rental_frontendui/widgets/admin/display/admin_dashboard_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/user_dasboard.dart';
 import 'package:vehicle_rental_frontendui/widgets/common widget/show_custom_snakebar.dart';
 
@@ -25,30 +27,38 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
       var data = await AuthService().login(username: username, password: password);
-      if (data != null) {
-        isLoading.value = false;
 
+      if (data != null) {
         LoginModel loginModel = LoginModel.fromJson(data);
 
-        // Save user data
+        // Save user data, token, and user ID
         AppStorage.saveIsLoggedin(true);
         AppStorage.saveUser(loginModel.toJson());
         AppStorage.saveUserType(loginModel.userType);
+        AppStorage.saveToken(loginModel.token ?? ''); // Save token
+        AppStorage.saveUserId(loginModel.userId ?? '');    // Save user ID
 
-        // Update the isLoggedIn status
+        // Verify and print user ID after saving
+        String? savedUserId = AppStorage.getUserId();
+        print("User ID after saving and retrieving: $savedUserId"); // Debug log
+
+        // Update login status and navigate based on user type
         isLoggedIn.value = true;
-
-        // Navigate based on userType
         if (loginModel.userType == 'User') {
-          Get.to(UserDashboardPage());
+          Get.offAll(UserDashboardPage());
         } else if (loginModel.userType == 'Dealer') {
-          Get.to(DealerDashboardPage());
+          Get.offAll(DealerDashboardPage());
+
+        }else if (loginModel.userType == 'Admin') {
+          Get.offAll(AdminDashboardPage());
         }
+      } else {
+        Get.snackbar("Login Error", "Invalid username or password.");
       }
-    } on Exception catch (e) {
+    } catch (e) {
+      Get.snackbar("Login Error", "Something went wrong. Please try again.");
+    } finally {
       isLoading.value = false;
-      Get.snackbar("Login Error", e.toString());
-      print(e.toString());
     }
   }
 

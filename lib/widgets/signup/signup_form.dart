@@ -67,11 +67,7 @@ class _TSignUpFormState extends State<TSignUpForm> {
       showCustomSnakeBar('Type a valid contact number', title: "contact");
     } else if (address.isEmpty) {
       showCustomSnakeBar('Type your address', title: "Address");
-    } else if (!GetUtils.isEmail(altEmail)) {
-      showCustomSnakeBar('Type a valid alternate email', title: "altEmail");
-    } else if (!GetUtils.isPhoneNumber(altContact)) {
-      showCustomSnakeBar('Type a valid alternate contact number', title: "altContact");
-    } else if (driverL.length < 5) {
+    }  else if (driverL.length < 5) {
       showCustomSnakeBar('Type a valid driver’s license', title: "driverL");
     } else if (password.length < 6) {
       showCustomSnakeBar('Password must be at least 6 characters', title: "password");
@@ -163,18 +159,7 @@ class _TSignUpFormState extends State<TSignUpForm> {
             decoration: const InputDecoration(
                 labelText: TTexts.address, prefixIcon: Icon(Iconsax.location)),
           ),
-          const SizedBox(height: 10.0),
-          TextFormField(
-            controller: atlEmailController,
-            decoration: const InputDecoration(
-                labelText: TTexts.aEmail, prefixIcon: Icon(Iconsax.directbox_send)),
-          ),
-          const SizedBox(height: 10.0),
-          TextFormField(
-            controller: altContactController,
-            decoration: const InputDecoration(
-                labelText: TTexts.aContact, prefixIcon: Icon(Iconsax.call)),
-          ),
+
           const SizedBox(height: 10.0),
           TextFormField(
             controller: driverLController,
@@ -204,29 +189,47 @@ class _TSignUpFormState extends State<TSignUpForm> {
     ),
 
     const SizedBox(height: 15.0),
-          Obx(() => Row(
-            children: [
-              Expanded(
-                child: RadioListTile(
-                  title: const Text('User'),
-                  value: 'User',
-                  groupValue: userTypeController.selectedUserType.value,
-                  onChanged: (value) {
-                    userTypeController.setUserType(value!);
-                  },
+          Obx(() => SizedBox(
+            height: 90,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile(
+                        title: const Text('User'),
+                        value: 'User',
+                        groupValue: userTypeController.selectedUserType.value,
+                        onChanged: (value) {
+                          userTypeController.setUserType(value!);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile(
+                        title: const Text('Dealer'),
+                        value: 'Dealer',
+                        groupValue: userTypeController.selectedUserType.value,
+                        onChanged: (value) {
+                          userTypeController.setUserType(value!);
+                        },
+                      ),
+                    ),
+
+                  ],
                 ),
-              ),
-              Expanded(
-                child: RadioListTile(
-                  title: const Text('Dealer'),
-                  value: 'Dealer',
-                  groupValue: userTypeController.selectedUserType.value,
-                  onChanged: (value) {
-                    userTypeController.setUserType(value!);
-                  },
+                Expanded(
+                  child: RadioListTile(
+                    title: const Text('Admin'),
+                    value: 'Admin',
+                    groupValue: userTypeController.selectedUserType.value,
+                    onChanged: (value) {
+                      userTypeController.setUserType(value!);
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           )),
           const SizedBox(height: 40),
           CustomButton(

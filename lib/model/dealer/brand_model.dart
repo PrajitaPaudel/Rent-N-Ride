@@ -21,15 +21,23 @@
 
 
 class VehicleBrandModel {
-  final int brandId;
+  final int? brandId;
   final String vehicleBrandName;
   final double rentalCharge;
 
   VehicleBrandModel({
-    required this.brandId,
+     this.brandId,
     required this.vehicleBrandName,
     required this.rentalCharge,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'VehicleBrandName': vehicleBrandName,
+      'RentalCharge': rentalCharge,
+    };
+  }
+
 
   // Factory method to create an instance from JSON
   factory VehicleBrandModel.fromJson(Map<String, dynamic> json) {

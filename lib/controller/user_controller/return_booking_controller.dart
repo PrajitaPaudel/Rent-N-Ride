@@ -13,6 +13,7 @@ import '../../model/user/booking_payment_list_model.dart';
 import '../../model/user/return_booking_model.dart';
 import '../../model/user/returncofirmation_model.dart';
 import '../../service/user/return_service.dart';
+import '../../storage/app_storage.dart';
 import '../../utils/constants/app_constant.dart';
 import '../../widgets/user/return_booking/payment_page.dart';
 import 'package:http/http.dart' as http;
@@ -38,6 +39,7 @@ class ReturnController extends GetxController {
     required int rating,
     String? damageReported,
   }) async {
+    String? userId =AppStorage.getUserId();
     // Check for empty fields that might cause validation errors
     if (returnLocation.isEmpty || rating < 1 || rating > 5) {
       print("Please fill in all required fields correctly.");
@@ -51,6 +53,7 @@ class ReturnController extends GetxController {
       returnLocation: returnLocation,
       rating: rating,
       damageReported: damageReported,
+      userId: userId,
     );
 
     // Call the service to submit the return data
@@ -81,6 +84,7 @@ class ReturnController extends GetxController {
 
 
   Future<void> confirmReturn(int returnId, BookingConfirmationModel bookingConfirmation) async {
+    String? token = AppStorage.getToken();
     // Construct the URL dynamically using the returnId
     final url = '${AppConstant.BASE_URL}${AppConstant.Damage_Payment}$returnId';
 
@@ -88,7 +92,10 @@ class ReturnController extends GetxController {
       // Sending the data to the backend
       final response = await http.post(
         Uri.parse(url),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
         body: jsonEncode(bookingConfirmation.toJson()), // Convert the model to JSON
       );
 
@@ -132,7 +139,7 @@ class ReturnController extends GetxController {
     return await Get.dialog<bool>(
       AlertDialog(
         title: Text("Confirm Deletion"),
-        content: Text("Are you sure you want to delete this booking?"),
+        content: Text("Are you sure you want to Cancel this booking?"),
         actions: [
           TextButton(
             onPressed: () => Get.back(result: false),

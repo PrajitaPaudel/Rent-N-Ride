@@ -1,5 +1,6 @@
 // return_model.dart
 class ReturnModel {
+  final String? userId;
   final int bookingId;
   final DateTime actualReturnDate;
   final String? damageReported;
@@ -7,6 +8,7 @@ class ReturnModel {
   final String returnLocation;
 
   ReturnModel({
+    this.userId,
     required this.bookingId,
     required this.actualReturnDate,
     this.damageReported,
@@ -22,6 +24,7 @@ class ReturnModel {
     data['DamageReported']= this.damageReported;
     data['Rating']=this.rating;
     data['ReturnLocation']= this.returnLocation;
+    data['UserId']= this.userId;
     return data;
   }
 }

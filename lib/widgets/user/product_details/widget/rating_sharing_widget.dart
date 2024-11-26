@@ -3,8 +3,10 @@ import 'package:iconsax/iconsax.dart';
 
 
 class TRatingAndShare extends StatelessWidget {
+  final String rating;
+  final String? totalRating;
   const TRatingAndShare({
-    super.key,
+    super.key, required this.rating, this.totalRating,
   });
 
   @override
@@ -19,16 +21,16 @@ class TRatingAndShare extends StatelessWidget {
             Text.rich(
                 TextSpan(
                     children: [
-                      TextSpan(text: '5.0' ),
-                      TextSpan(text: '(199)'),
+                      TextSpan(text: rating ),
+                      TextSpan(text: totalRating),
                     ]
                 )
             )
           ],
         ),
-        IconButton(
-            onPressed: (){},
-            icon: const Icon(Icons.share,size: 24,)),
+        // IconButton(
+        //     onPressed: (){},
+        //     icon: const Icon(Icons.share,size: 24,)),
       ],
     );
   }

@@ -21,13 +21,19 @@
 
 
 class VehicleCategoryModel {
-  final int categoryId;
+  final int? categoryId;
   final String vehicleCategoryName;
 
   VehicleCategoryModel({
-    required this.categoryId,
+      this.categoryId,
     required this.vehicleCategoryName,
   });
+  Map<String, dynamic> toJson() {
+    return {
+      'VehicleCategoryName': vehicleCategoryName,
+
+    };
+  }
 
   // Factory method to create an instance from JSON
   factory VehicleCategoryModel.fromJson(Map<String, dynamic> json) {

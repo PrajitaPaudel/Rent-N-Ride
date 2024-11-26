@@ -2,7 +2,7 @@ class AppConstant{
   static const String APP_NAME="vehicle_rental_frontendui";
 
 
-  static const String BASE_URL='http://192.168.1.4:5283/';
+  static const String BASE_URL='http://192.168.1.6:5283/';
   static const String REGISTRATION_URL="api/Users/Registration";
   static const String LOGIN_URL="api/Users/login";
    static const String IMAGE_UPLOAD_URL="";
@@ -23,9 +23,41 @@ class AppConstant{
   static const String Return_Booking="api/Return/AddReturn";
   static const String Delete_Booking="api/Booking/DeleteBooking/";
   static const String Delete_Vehicle="api/Vehicle/DeleteVehicle/";
+
   static const String Get_Categories="api/Category/GetVehicleCategories";
+  static const String Add_Categories="api/Category/AddVehicleCategory";
+  static const String Get_Categories_By_Id="api/Category/GetVehicleCategory/";
+  static const String Update_Categories="api/Category/UpdateVehicleCategory/";
+  static const String Delete_Categories="api/Category/DeleteVehicleCategory/";
+
+
+  static const String Add_Brand="api/VehicleBrand/AddVehicleBrand";
+  static const String Get_Vehicle_Brand_By_Id="api/VehicleBrand/GetVehicleBrand/";
   static const String Get_Brand="api/VehicleBrand/GetVehicleBrands";
+  static const String Update_Brand="api/VehicleBrand/UpdateVehicleBrand/";
+  static const String Delete_Brand="api/VehicleBrand/DeleteVehicleBrand/";
+
   static const String Get_Model="api/VehicleModel/GetVehicleModels";
+  static const String Add_Model="api/VehicleModel/AddVehicleModel";
+  static const String Get_Model_By_Id="api/VehicleModel/GetVehicleModel/";
+  static const String Update_Model="api/VehicleModel/UpdateVehicleModel/";
+  static const String Delete_Model="api/VehicleModel/DeleteVehicleModel/";
+
+  static const String Rental_History="api/RentalHistory/GetAllRentalHistory";
+  static const String Rental_History_User="api/RentalHistory/GetRentalHistory";
+  static const String User_List_Admin="api/Users/GetAllUsers";
+  static const String Booking_List_Admin="api/BookingConfirmation/GetAllBookingDetails";
+  static const String Admin_Total="api/RentalHistory/GetAdminEarnings";
+  static const String Dealer_Total="api/RentalHistory/GetDealerEarnings";
+  static const String Get_All_Vehicle_Admin="";
+  static const String Search_Vehicle="api/Vehicle/SearchVehicles?query=";
+
+
+  static const String Dealer_Vehicle="api/Vehicle/GetUserVehicles";
+  static const String Dealer_Vehicle_By_Id="api/Vehicle/GetVehicleById/";
+  static const String User_Booking_detailed="api/BookingConfirmation/GetAllBookingConfirmationDetails";
+  static const String One_Dealer_Earning="api/RentalHistory/GetOneDealerEarning";
+
   static const String UserName="";
   static const String NUMBER="";
   static const String PASSWORD="";
@@ -40,9 +72,9 @@ class AppConstant{
 
 
 List<String>orderList=[
-  "New order",
-  "Pending",
-  "Delivered",
-  "Cancelled"
+  "Home Page",
+  "Vehicle",
+  "Booked",
+   "Delivered"
 
 ];

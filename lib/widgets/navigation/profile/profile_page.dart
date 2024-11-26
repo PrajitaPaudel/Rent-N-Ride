@@ -3,10 +3,10 @@ import 'package:vehicle_rental_frontendui/widgets/common%20widget/account_widget
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/container/circular_container.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/text/big_text.dart';
 
-import '../../controller/user_controller/auth_controller.dart';
-import '../../model/login_model.dart';
-import '../../storage/app_storage.dart';
-import '../../utils/constants/colors.dart';
+import '../../../controller/user_controller/auth_controller.dart';
+import '../../../model/login_model.dart';
+import '../../../storage/app_storage.dart';
+import '../../../utils/constants/colors.dart';
 
 class Profile extends StatefulWidget {
 
@@ -69,7 +69,7 @@ class _ProfileState extends State<Profile> {
               margin:EdgeInsets.only(left: 10,right: 20,top: 10,bottom: 10),
               icon: Icons.email,
               backgroundColor: Colors.orange.shade300,
-              bigText: BigText(text: loginModel?.emailId ?? 'No email'),
+              bigText: BigText(text: loginModel?.email ?? 'No email'),
             ),
             SizedBox(height: 8),
             AccountWidget(
@@ -83,7 +83,7 @@ class _ProfileState extends State<Profile> {
               margin:EdgeInsets.only(left: 10,right: 20,top: 10,bottom: 10),
               icon: Icons.location_on,
               backgroundColor: Colors.orange.shade300,
-              bigText: BigText(text: loginModel?.address ?? 'No Address'),
+              bigText: BigText(text: loginModel?.address ?? 'No Address',size: 18,),
             ),
             SizedBox(height: 8),
             AccountWidget(

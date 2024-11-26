@@ -33,7 +33,9 @@ class _GetAllBookingState extends State<GetAllBooking> {
   @override
   void initState() {
     super.initState();
-    bookingController.fetchBookingDetails(widget.bookingId);
+    Future.delayed(Duration.zero, () {
+      bookingController.fetchBookingDetails(widget.bookingId);
+    });
   }
 
   @override

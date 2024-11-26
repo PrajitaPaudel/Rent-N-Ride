@@ -14,31 +14,28 @@ import 'controller/user_controller/auth_controller.dart';
 
 
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init("User"); // Ensure storage is initialized before use
 
+  // Initialize AuthController
+  Get.put(AuthController()); // Use Get.put here to make the AuthController immediately available
 
-  void  main()  async {
-    GetStorage.init("User");
-    // WidgetsFlutterBinding.ensureInitialized();
-
-
-    runApp(const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // Get.find<AuthController>();
-
-    return   GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
-      theme:TAppTheme.lightTheme,
+      theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
-
-      home:NavigationMenu(),
+      home: NavigationMenu(),
     );
   }
 }
+

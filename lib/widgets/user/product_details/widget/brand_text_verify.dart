@@ -28,6 +28,7 @@ class TBrandTextVerify extends StatelessWidget {
             textColor: TColors.darkerGrey,
             textAlign: textAlign,
             fontWeight: FontWeight.bold,
+            size: 15,
 
           ),
         ),

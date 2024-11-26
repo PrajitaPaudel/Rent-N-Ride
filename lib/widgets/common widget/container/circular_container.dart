@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vehicle_rental_frontendui/utils/constants/colors.dart';
 
-class TCircularContainer extends StatelessWidget {
+import 'package:flutter/material.dart';
 
+class TCircularContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final double radius;
@@ -13,26 +14,26 @@ class TCircularContainer extends StatelessWidget {
   final String? text;
   final Function()? onTap;
   final Border? border;
+  final List<BoxShadow>? boxShadow; // Use List<BoxShadow> for custom shadows
 
-   TCircularContainer({
+  const TCircularContainer({
     super.key,
     this.width,
     this.height,
-    this.radius=10,
-     this.padding=0,
+    this.radius = 10,
+    this.padding = 0,
     this.margin,
     this.child,
     this.backgroundColor,
-     this.text,  this.onTap,  this.border,
-
-
+    this.text,
+    this.onTap,
+    this.border,
+    this.boxShadow, // Allow custom box shadows
   });
-
-
 
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         width: width,
@@ -40,13 +41,14 @@ class TCircularContainer extends StatelessWidget {
         margin: margin,
         padding: EdgeInsets.all(padding),
         decoration: BoxDecoration(
-        borderRadius:BorderRadius.circular(radius),
+          borderRadius: BorderRadius.circular(radius),
+          boxShadow: boxShadow ?? [],
           border: border,
-          color:backgroundColor,
+          color: backgroundColor,
         ),
-        child: child ?? (text != null ? Text(text!) : null), // Display text if no child is provided
-
+        child: child ?? (text != null ? Center(child: Text(text!)) : null),
       ),
     );
   }
 }
+

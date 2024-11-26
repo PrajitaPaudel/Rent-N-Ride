@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/container/curved_widget.dart';
+import 'package:vehicle_rental_frontendui/widgets/common%20widget/show_custom_snakebar.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/product_details/widget/product_meta_data.dart';
 import 'package:vehicle_rental_frontendui/widgets/user/product_details/widget/product_review_page.dart';
 
@@ -21,6 +22,7 @@ class ProductDetailScreen extends StatelessWidget {
   final AuthController authController = Get.put(AuthController ());
   final Vehicle vehicle; // Accept the vehicle data passed from the previous screen
   final defaultImageUrl = "assets/logos/logo-white.png";
+  final String? userType=AppStorage.getUserType();
 
    ProductDetailScreen({Key? key, required this.vehicle}) : super(key: key);
 
@@ -83,7 +85,7 @@ class ProductDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  TRatingAndShare(),
+                  TRatingAndShare(rating: '5.0',totalRating: '199',),
                   SizedBox(height: 10),
 
                   TProductMetaData(
@@ -104,12 +106,26 @@ class ProductDetailScreen extends StatelessWidget {
                     damages: vehicle.damage ?? 'No Damages',
                     description: vehicle.detail ?? 'No description available',
                     reviewCount: 199,
+
                     onCheckout: () {
                       // Use AuthController to check if user is logged in
                       if (authController.isLoggedIn.value) {
-                        Get.to(() => OrderPage(vehicle: vehicle));
+                        if(userType=='User'){
+                          if(vehicle.available==true){
+                        Get.to(() => OrderPage(vehicle: vehicle));}
+                          else{
+                            showCustomSnakeBar('Vehicle is not Available',title: 'Warning',color: TColors.warning);
+                          }
+
+                        }
+
+
+                        else{
+                          showCustomSnakeBar('You need to be User to Proceed',title: 'Warning',color: TColors.warning);
+                          Get.to(()=>LoginPage());
+                        }
                       } else {
-                        Get.to(LoginPage()); // Navigate to LoginPage if not logged in
+                        Get.to(()=>LoginPage());
                       }
                     },
                     onViewReviews: () => Get.to(() => ProductReviewPage()),

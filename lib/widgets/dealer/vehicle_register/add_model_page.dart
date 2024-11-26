@@ -92,7 +92,7 @@ class AddModel extends StatelessWidget {
                       CustomButton(
                         text: 'Back',
                         onTap: () {
-                          Get.to(() => AddBrandPage());
+                          // Get.to(() => AddBrandPage());
                         },
                         height: 50,
                         borderRadius: 50,

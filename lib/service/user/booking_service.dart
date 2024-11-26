@@ -7,12 +7,14 @@ import 'package:vehicle_rental_frontendui/widgets/common%20widget/show_custom_sn
 import '../../model/user/booking _confirmation_model.dart';
 import '../../model/user/booking_model.dart';
 import '../../model/user/booking_payment_list_model.dart';
+import '../../storage/app_storage.dart';
 import '../../utils/constants/app_constant.dart';
 
 
 class BookingService {
   // Function to upload booking details along with images
   Future<int?> uploadBookingDetails(BookingModel bookingModel) async {
+    String? token = AppStorage.getToken();
     try {
       // Create the multipart request
       var request = http.MultipartRequest(
@@ -20,6 +22,9 @@ class BookingService {
         Uri.parse(AppConstant.BASE_URL + AppConstant.Booking_URL),
 
       );
+      if (token != null) {
+        request.headers['Authorization'] = 'Bearer $token'; // Add the token here
+      }
 
       // Add basic booking fields
       request.fields['StartDate'] = bookingModel.startDate.toIso8601String();
@@ -32,7 +37,7 @@ class BookingService {
       request.fields['BillingAddress'] = bookingModel.billingAddress ?? '';
       request.fields['InsuranceRequired'] = bookingModel.insuranceRequired.toString();
       request.fields['SpecialRequests'] = bookingModel.specialRequests ?? '';
-
+      request.fields['UserId'] = bookingModel.userId ?? '';
       // Add image files if they exist
       if (bookingModel.files != null) {
         for (var file in bookingModel.files!) {
@@ -68,9 +73,10 @@ class BookingService {
 
 
   Future<BookingTotalModel> getTotalAmount(int bookingId) async {
+    String? token = AppStorage.getToken();
     final url = Uri.parse(AppConstant.BASE_URL+AppConstant.Booking_Total+'$bookingId');
 
-    final response = await http.get(url);
+    final response = await http.get(url,headers: token != null ? {'Authorization': 'Bearer $token'} : {},);
 
     if (response.statusCode == 200) {
       print("Booking upload success with status: ${response.statusCode}");
@@ -83,10 +89,11 @@ class BookingService {
 
 
   Future<Map<String, dynamic>?> fetchBookingDetails(int bookingId) async {
+    String? token = AppStorage.getToken();
     final url = AppConstant.BASE_URL+AppConstant.Get_All_Booking+'$bookingId';
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url),headers: token != null ? {'Authorization': 'Bearer $token'} : {},);
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
 
@@ -109,6 +116,26 @@ class BookingService {
     } catch (e) {
       print("Error fetching booking details: $e");
       return null;
+    }
+  }
+
+
+
+
+  Future<BookingResponse> fetchUserBookingDetails() async {
+    String? token = AppStorage.getToken();
+    final url = AppConstant.BASE_URL+AppConstant.User_Booking_detailed;
+
+    try {
+      final response = await http.get(Uri.parse(url),headers: token != null ? {'Authorization': 'Bearer $token'} : {},);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return BookingResponse.fromJson(data);
+      } else {
+        throw Exception('Failed to load booking details');
+      }
+    }catch(e){
+      throw Exception('Failed to load booking details');
     }
   }
 

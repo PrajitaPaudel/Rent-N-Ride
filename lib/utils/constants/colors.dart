@@ -6,11 +6,13 @@ class TColors {
   static const Color secondary = Color(0xFFFFE24B);
   static const Color accent = Color(0xFFb0c7ff);
   static const Color subPrimary = Color(0xFF7dd5c8);
-
+  static const Color blueGery = Color(0xFF455a64);
+  static const Color darkBlueGery = Color(0xFF37474f);
   // Text colors
   static const Color textPrimary = Color(0xFF333333);
   static const Color textSecondary = Color(0xFF6C757D);
   static const Color textWhite = Colors.white;
+
 
   // Background colors
   static const Color light = Color(0xFFF6F6F6);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vehicle_rental_frontendui/widgets/dealer/Dcategories/add_vehicle.dart';
-import 'package:vehicle_rental_frontendui/widgets/dealer/Dcategories/self_deliver.dart';
-import 'package:vehicle_rental_frontendui/widgets/dealer/Dcategories/vehicle.dart';
+
+import 'package:vehicle_rental_frontendui/widgets/dealer/display_dealer/display_category_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/dealer/display_dealer/display_model.dart';
 
 import '../../../utils/constants/image_strings.dart';
 import '../../common widget/text/home_title.dart';
+import '../display_dealer/display_brand.dart';
 
 
 class DCategories extends StatelessWidget {
@@ -27,18 +29,22 @@ class DCategories extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          HomeTitle(iconPath:TImages.car,
+          HomeTitle(iconPath:TImages.sumo,
               text:'Add vehicle', onTap: (){
             Get.to(()=>AddVehicle());
 
               }),
-          HomeTitle(iconPath:TImages.car,
-              text:'vehicle', onTap: (){
-                Get.to(()=>Vehicle());
+          HomeTitle(iconPath:TImages.categories1,
+              text:'Brand', onTap: (){
+                Get.to(()=>DealerDisplayBrand());
               }),
-          HomeTitle(iconPath:TImages.car,
-              text:'Deliver',onTap: (){
-                Get.to(()=>SelfDeliver());
+          HomeTitle(iconPath:TImages.Scorpio,
+              text:'Model', onTap: (){
+                Get.to(()=>DealerDisplayModel());
+              }),
+          HomeTitle(iconPath:TImages.van,
+              text:'Category',onTap: (){
+                Get.to(()=>DealerDisplayCategory());
               }),
         ],
       ),

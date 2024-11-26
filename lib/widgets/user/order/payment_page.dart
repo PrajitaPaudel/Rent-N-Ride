@@ -39,7 +39,8 @@ class _BookingTotalAmountPageState extends State<BookingTotalAmountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Booking Summary')),
+      appBar: AppBar(title: Text('Booking Summary'),
+      centerTitle: true,),
       body: Obx(() {
         final booking = bookingController.bookingTotal.value;
 
@@ -48,59 +49,59 @@ class _BookingTotalAmountPageState extends State<BookingTotalAmountPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TCircularContainer(
-                height: 80,
-                border: Border.all(color: Colors.grey),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TRoundedImages(
-                        border: Border.all(color: Colors.grey),
-                        isNetworkingImage: true,
-                        height: 200,
-                        imageUrl: widget.vehicle.vehicleImages?.isNotEmpty == true
-                            ? widget.vehicle.vehicleImages![0].imagePath ?? ''
-                            : '',
-                        defaultAssetImage: defaultImageUrl,
-                      ),
-                      const SizedBox(width: 40),
-                      Flexible(  // Use Flexible instead of Expanded
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                SmallText(text: 'Brand:', fontWeight: FontWeight.bold, size: 13),
-                                const SizedBox(width: 5),
-                                SmallText(text: widget.vehicle.brand?.vehicleBrandName ?? "Unknown", fontWeight: FontWeight.bold, size: 13),
-                              ],
-                            ),
-                            const SizedBox(height: 2),
-                            Row(
-                              children: [
-                                SmallText(text: 'Model:', fontWeight: FontWeight.bold, size: 13),
-                                const SizedBox(width: 5),
-                                SmallText(text: widget.vehicle.model?.vehicleModelName ?? "Unknown", fontWeight: FontWeight.bold, size: 13),
-                              ],
-                            ),
-                            const SizedBox(height: 2),
-                            Row(
-                              children: [
-                                SmallText(text: 'Category:', fontWeight: FontWeight.bold, size: 13),
-                                const SizedBox(width: 5),
-                                SmallText(text: widget.vehicle.category?.vehicleCategoryName ?? "Unknown", fontWeight: FontWeight.bold, size: 13),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // TCircularContainer(
+              //   height: 80,
+              //   border: Border.all(color: Colors.grey),
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         TRoundedImages(
+              //           border: Border.all(color: Colors.grey),
+              //           isNetworkingImage: true,
+              //           height: 200,
+              //           imageUrl: widget.vehicle.vehicleImages?.isNotEmpty == true
+              //               ? widget.vehicle.vehicleImages![0].imagePath ?? ''
+              //               : '',
+              //           defaultAssetImage: defaultImageUrl,
+              //         ),
+              //         const SizedBox(width: 40),
+              //         Flexible(  // Use Flexible instead of Expanded
+              //           child: Column(
+              //             mainAxisSize: MainAxisSize.min,
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children: [
+              //               Row(
+              //                 children: [
+              //                   SmallText(text: 'Brand:', fontWeight: FontWeight.bold, size: 13),
+              //                   const SizedBox(width: 5),
+              //                   SmallText(text: widget.vehicle.brand?.vehicleBrandName ?? "Unknown", fontWeight: FontWeight.bold, size: 13),
+              //                 ],
+              //               ),
+              //               const SizedBox(height: 2),
+              //               Row(
+              //                 children: [
+              //                   SmallText(text: 'Model:', fontWeight: FontWeight.bold, size: 13),
+              //                   const SizedBox(width: 5),
+              //                   SmallText(text: widget.vehicle.model?.vehicleModelName ?? "Unknown", fontWeight: FontWeight.bold, size: 13),
+              //                 ],
+              //               ),
+              //               const SizedBox(height: 2),
+              //               Row(
+              //                 children: [
+              //                   SmallText(text: 'Category:', fontWeight: FontWeight.bold, size: 13),
+              //                   const SizedBox(width: 5),
+              //                   SmallText(text: widget.vehicle.category?.vehicleCategoryName ?? "Unknown", fontWeight: FontWeight.bold, size: 13),
+              //                 ],
+              //               ),
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 20),
               TCircularContainer(
                 border:  Border.all(color: Colors.grey),

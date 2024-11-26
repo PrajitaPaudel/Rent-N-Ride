@@ -9,6 +9,7 @@ import '../../../model/user/popular_model.dart';
 import '../../../model/user/vehile_category_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../common widget/container/curved_widget.dart';
+import '../../common widget/show_custom_snakebar.dart';
 import '../order/order_page.dart';
 
 
@@ -68,7 +69,7 @@ class CategoryProductDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  TRatingAndShare(),
+                  TRatingAndShare(rating: '5.0',totalRating: '199',),
                   SizedBox(height: 10),
 
                   TProductMetaData(
@@ -89,7 +90,14 @@ class CategoryProductDetailScreen extends StatelessWidget {
                     damages: vehicle.damage ?? 'No Damages',
                     description: vehicle.detail ?? 'No description available',
                     reviewCount: 199,
-                    onCheckout: () => Get.to(() => OrderPage(vehicle: vehicle,)),
+                    onCheckout: () {
+                      if(vehicle.available==true) {
+                        Get.to(() => OrderPage(vehicle: vehicle,));}
+                      else {
+                        showCustomSnakeBar(
+                            'Vehicle is not Available', title: 'Warning',
+                            color: TColors.warning);
+                      }},
                     onViewReviews: () => Get.to(() => ProductReviewPage()),
                   ),
                 ],

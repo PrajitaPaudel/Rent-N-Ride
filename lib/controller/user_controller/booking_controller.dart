@@ -12,6 +12,7 @@ import '../../model/user/booking_payment_list_model.dart';
 import '../../model/user/popular_model.dart';
 import '../../service/user/booking_service.dart';
 
+import '../../storage/app_storage.dart';
 import '../../widgets/common widget/show_custom_snakebar.dart';
 import '../../widgets/user/user_dasboard.dart';
 import 'package:http/http.dart' as http;
@@ -40,6 +41,7 @@ class BookingController extends GetxController {
   bool insuranceRequired = false;
   String? specialRequests;
   List<XFile>? images = <XFile>[].obs;
+  String? userId;
 
   // Image picker
   final ImagePicker imagePicker = ImagePicker();
@@ -67,6 +69,7 @@ class BookingController extends GetxController {
     String? specialRequests,
     required List<XFile> images,
   }) async {
+    String? userId =AppStorage.getUserId();
     // Convert XFiles to Files
     List<File> imageFiles = images.map((xfile) => File(xfile.path)).toList();
 
@@ -85,6 +88,7 @@ class BookingController extends GetxController {
       insuranceRequired: insuranceRequired,
       specialRequests: specialRequests,
       files: imageFiles,
+      userId: userId,
     );
 
     // Call the service to upload booking data and images
@@ -132,21 +136,24 @@ class BookingController extends GetxController {
 
 
   Future<void> confirmBooking(BookingConfirmationModel bookingConfirmation) async {
-    final url = AppConstant.BASE_URL+AppConstant.Confirm_Booking+'${bookingConfirmation.bookingId}';
+    String? token = AppStorage.getToken();
+    final url = AppConstant.BASE_URL + AppConstant.Confirm_Booking + '${bookingConfirmation.bookingId}';
 
     try {
       final response = await http.post(
         Uri.parse(url),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          if (token != null) 'Authorization': 'Bearer $token',
+        },
         body: jsonEncode(bookingConfirmation.toJson()),
       );
 
       if (response.statusCode == 200) {
         // Handle success
-        Get.to(()=>GetAllBooking(bookingId: bookingConfirmation.bookingId ));
+        Get.to(() => GetAllBooking(bookingId: bookingConfirmation.bookingId));
         print("Booking confirmed successfully!");
-        showCustomSnakeBar('Booking confirmed successfully!',title: 'Success',color: Colors.green);
-
+        showCustomSnakeBar('Booking confirmed successfully!', title: 'Success', color: Colors.green);
       } else {
         // Handle error
         print("Failed to confirm booking: ${response.statusCode}");
@@ -155,7 +162,6 @@ class BookingController extends GetxController {
       print("Error in confirming booking: $e");
     }
   }
-
 
 
 
@@ -180,6 +186,25 @@ class BookingController extends GetxController {
       }
     } catch (e) {
       print("Error fetching booking details: $e");
+    } finally {
+      isLoading(false);
+    }
+  }
+  @override
+  void onInit() {
+    super.onInit();
+    fetchUserBookingDetails();
+  }
+
+
+  var bookingDetailsList = <BookingDetails>[].obs;
+  void fetchUserBookingDetails() async {
+    try {
+      isLoading(true);
+      final response = await bookingService.fetchUserBookingDetails();
+      bookingDetailsList.value = response.values ?? [];
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
     } finally {
       isLoading(false);
     }

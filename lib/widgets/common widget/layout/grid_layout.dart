@@ -16,7 +16,7 @@ class TGridLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(), // If you want it to scroll independently, remove this
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: itemCount,
       padding: EdgeInsets.zero,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
