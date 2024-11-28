@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:vehicle_rental_frontendui/home_page.dart';
 import 'package:vehicle_rental_frontendui/storage/app_storage.dart';
 import 'package:vehicle_rental_frontendui/widgets/admin/display/admin_dashboard_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/chat_page.dart';
+import 'package:vehicle_rental_frontendui/widgets/chat_screen_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/common%20widget/verticle_order_containter.dart';
 import 'package:vehicle_rental_frontendui/widgets/navigation/about_us_page.dart';
 import 'package:vehicle_rental_frontendui/widgets/navigation/profile/admin_profile.dart';
@@ -17,6 +19,7 @@ import 'package:vehicle_rental_frontendui/widgets/dealer/dealer_dashboard_page.d
 import 'package:vehicle_rental_frontendui/widgets/user/user_dasboard.dart';
 
 import 'controller/user_controller/auth_controller.dart'; // Import your AuthController
+
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -69,7 +72,7 @@ class NavigationController extends GetxController {
           UserDashboardPage(),
           VehicleGallery(),
           ContactUs(),
-          AboutUs(),
+          ChatPage(),
           Profile(),
         ]);
       } else if (userType == 'Dealer') {
@@ -77,7 +80,7 @@ class NavigationController extends GetxController {
           DealerDashboardPage(),
           DealerVehicleGallery(),
           ContactUs(),
-          AboutUs(),
+           ChatPageScreen(userName: 'sanjana',),
           Profile(),
         ]);
       } else if (userType == 'Admin') {

@@ -2,7 +2,7 @@ class AppConstant{
   static const String APP_NAME="vehicle_rental_frontendui";
 
 
-  static const String BASE_URL='http://192.168.1.6:5283/';
+  static const String BASE_URL='http://192.168.1.3:5283/';
   static const String REGISTRATION_URL="api/Users/Registration";
   static const String LOGIN_URL="api/Users/login";
    static const String IMAGE_UPLOAD_URL="";

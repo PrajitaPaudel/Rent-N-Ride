@@ -1,4 +1,4 @@
-#Tue Nov 26 09:55:20 NPT 2024
+#Thu Nov 28 07:48:41 NPT 2024
 base.0=C\:\\Users\\DELL\\AndroidStudioProjects\\vehicle_rental_frontendui\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
