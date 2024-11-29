@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:logging/logging.dart';
@@ -14,21 +15,26 @@ import '../utils/constants/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
+import 'package:flutter/material.dart';
+import 'package:signalr_netcore/signalr_client.dart';
+
+
+
 class ChatPageScreen extends StatefulWidget {
   final String userName;
 
   const ChatPageScreen({required this.userName, Key? key}) : super(key: key);
 
   @override
-  State<ChatPageScreen> createState() => _ChatPageScreenState();
+  State<ChatPageScreen> createState() => _ChatPageState();
 }
 
-class _ChatPageScreenState extends State<ChatPageScreen> {
+class _ChatPageState extends State<ChatPageScreen> {
   late HubConnection connection;
   bool isConnectionInitialized = false;
   final TextEditingController messageTextController = TextEditingController();
   final ScrollController chatListScrollController = ScrollController();
-  List<MessageModel> messageModel = [];
+  List<MessageModel> messages = [];
 
   @override
   void initState() {
@@ -47,38 +53,60 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
   }
 
   Future<void> initializeConnection() async {
-    String? token = AppStorage.getToken();
+    String? token = AppStorage.getToken(); // Replace with actual token retrieval logic
 
     try {
       connection = HubConnectionBuilder()
           .withUrl(
-        '${AppConstant.BASE_URL}chathub?access_token=${Uri.encodeComponent(token ?? "")}',
+        AppConstant.BASE_URL+'chathub',
         options: HttpConnectionOptions(
-          accessTokenFactory: () => Future.value(token),
+          accessTokenFactory: () async => token??"",
         ),
       )
+          .withAutomaticReconnect()
           .build();
 
       connection.on('ReceiveMessage', (message) {
+        print("Received message: $message"); // Add this debug log.
+
+        // Inspect the message structure
         if (message != null && message.isNotEmpty) {
-          _handleIncomingMessages(message[0]);
+          // Assuming `message` is an array with a single object.
+          if (message[0] is Map<String, dynamic>) {
+            _handleIncomingMessages(message[0]); // Pass the object to the handler.
+          } else {
+            print("Message format invalid: $message");
+          }
+        } else {
+          print("Received null or empty message.");
         }
       });
 
-      connection.onclose((error) {
-        print("Connection closed: $error");
+      // Timer.periodic(Duration(seconds: 20), (timer) {
+      //   print("Connection state: ${connection.state}");
+      // });
+
+
+      // Correctly define the onclose callback with nullable error handling
+      connection.onclose((Object? error) {
+        Exception? exceptionError = error as Exception?;
+        if (exceptionError != null) {
+          print("SignalR connection closed with error: $exceptionError");
+        } else {
+          print("SignalR connection closed without error.");
+        }
       } as ClosedCallback);
+
+
+
 
       await connection.start();
       setState(() {
         isConnectionInitialized = true;
       });
-      print("SignalR connection established.");
+      print("SignalR connection initialized successfully.");
     } catch (e) {
-      print("Error connecting to SignalR: $e");
-      setState(() {
-        isConnectionInitialized = false;
-      });
+      print("Error initializing SignalR connection: $e");
     }
   }
 
@@ -87,12 +115,12 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
 
     try {
       if (args is Map<String, dynamic>) {
-        final data = MessageModel.fromJson(args);
+        final newMessage = MessageModel.fromJson(args);
         setState(() {
-          messageModel.add(data);
+          messages.add(newMessage);
         });
 
-        // Auto-scroll to latest message
+        // Auto-scroll to the latest message
         Future.delayed(const Duration(milliseconds: 100), () {
           chatListScrollController.animateTo(
             chatListScrollController.position.maxScrollExtent,
@@ -100,31 +128,35 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
             curve: Curves.easeOut,
           );
         });
-      } else {
-        print("Unexpected message format: $args");
       }
     } catch (e) {
-      print("Error handling incoming message: $e");
+      print("Error processing incoming message: $e");
     }
   }
 
   Future<void> submitMessageFunction() async {
     if (!isConnectionInitialized) {
-      print("Connection is not initialized.");
+      print("Connection not ready.");
       return;
     }
 
     final messageText = messageTextController.text.trim();
-    if (messageText.isEmpty || widget.userName.isEmpty) {
-      print("Message text or username is empty.");
+    if (messageText.isEmpty) {
+      print("Message is empty.");
       return;
     }
 
     try {
-      await connection.invoke('SendMessageToUser', args: [
-        widget.userName,
-        messageText,
-      ]);
+      await connection.invoke('SendMessageToUser', args: [widget.userName, messageText]);
+      print("Message sent successfully.");
+      setState(() {
+        messages.add(MessageModel(
+
+          userId: AppStorage.getUserId(),
+          userName: widget.userName,
+          messageText: messageText,
+        ));
+      });
       messageTextController.clear();
     } catch (e) {
       print("Error sending message: $e");
@@ -134,17 +166,18 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Chat")),
+      appBar: AppBar(title: Text("Chat with ${widget.userName}")),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
               controller: chatListScrollController,
-              itemCount: messageModel.length,
+              itemCount: messages.length,
               itemBuilder: (context, index) {
+                final message = messages[index];
                 return ListTile(
-                  title: Text(messageModel[index].userName ?? "Unknown"),
-                  subtitle: Text(messageModel[index].messageText ?? ""),
+                  title: Text(message.userName ?? "Unknown"),
+                  subtitle: Text(message.messageText ?? ""),
                 );
               },
             ),
@@ -156,9 +189,7 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
                 Expanded(
                   child: TextField(
                     controller: messageTextController,
-                    decoration: const InputDecoration(
-                      hintText: "Type your message",
-                    ),
+                    decoration: const InputDecoration(hintText: "Enter message"),
                   ),
                 ),
                 IconButton(
@@ -173,4 +204,3 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
     );
   }
 }
-

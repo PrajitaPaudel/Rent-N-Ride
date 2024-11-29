@@ -15,7 +15,7 @@ class VanPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   VanPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(9); // Fetching cars
+    categoryController.fetchVehiclesByCategory(13); // Fetching cars
   }
 
   @override
@@ -26,7 +26,7 @@ class VanPage extends StatelessWidget {
         child: Column(
           children: [
             THeaderAppBar(text: "Van"),
-            SizedBox(height: 5,),
+         
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() {

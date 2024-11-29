@@ -6,6 +6,8 @@ import '../service/message_service.dart';
 
   // Import HTTP service
 
+// Import SignalRService
+
 class ChatPage extends StatefulWidget {
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -18,24 +20,21 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
-    // Initialize SignalRService and the connection with the user's username
     _signalRService = SignalRService();
-    _signalRService.initializeConnection('prajita');  // Initialize with your username here
+    _signalRService.initializeConnection('Sanjana');  // Replace with your username
   }
 
   @override
   void dispose() {
-    // Stop the SignalR connection and clean up resources when the widget is disposed
     _signalRService.stopConnection();
     super.dispose();
   }
 
-  // Method to handle sending a message
   void _sendMessage() {
     String messageContent = _messageController.text;
     if (messageContent.isNotEmpty) {
-      _signalRService.sendMessage('sanjana', messageContent); // Replace 'sanjana' with dynamic recipient
-      _messageController.clear();  // Clear input after sending
+      _signalRService.sendMessage('prajita', messageContent); // Replace with dynamic recipient
+      _messageController.clear();
     }
   }
 
@@ -47,7 +46,7 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: StreamBuilder<String>(
-              stream: _signalRService.messageStream,  // Listen to incoming messages from SignalR
+              stream: _signalRService.messageStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -59,7 +58,7 @@ class _ChatPageState extends State<ChatPage> {
                   return ListView(
                     children: [
                       ListTile(
-                        title: Text(snapshot.data!), // Display the received message
+                        title: Text(snapshot.data!),
                       ),
                     ],
                   );
@@ -79,7 +78,7 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 IconButton(
                   icon: Icon(Icons.send),
-                  onPressed: _sendMessage,  // Send message on press
+                  onPressed: _sendMessage,
                 ),
               ],
             ),
@@ -89,4 +88,3 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 }
-

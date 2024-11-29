@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.5 <4.0.0'
+  sdk: '>=3.3.5 <4.0.0'
 
 
 dependencies:
@@ -22,6 +22,7 @@ dependencies:
   carousel_slider: ^5.0.0
   smooth_page_indicator: ^1.1.0
   shared_preferences: ^2.2.3
+
 
   signalr_netcore:
 

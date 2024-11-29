@@ -15,7 +15,7 @@ class SumoPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   SumoPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(3); // Fetching cars
+    categoryController.fetchVehiclesByCategory(7); // Fetching cars
   }
 
   @override

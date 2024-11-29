@@ -15,7 +15,7 @@ class ScooterPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   ScooterPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(10); // Fetching cars
+    categoryController.fetchVehiclesByCategory(2); // Fetching cars
   }
 
   @override

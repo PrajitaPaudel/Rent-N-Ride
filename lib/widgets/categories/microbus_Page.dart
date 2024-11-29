@@ -15,7 +15,7 @@ class MicroBusPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   MicroBusPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(7); // Fetching cars
+    categoryController.fetchVehiclesByCategory(9); // Fetching cars
   }
 
   @override

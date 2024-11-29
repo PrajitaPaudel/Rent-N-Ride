@@ -15,7 +15,7 @@ class JeepPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   JeepPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(6); // Fetching cars
+    categoryController.fetchVehiclesByCategory(5); // Fetching cars
   }
 
   @override

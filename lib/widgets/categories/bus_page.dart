@@ -18,7 +18,7 @@ class BusPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
  BusPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(2); // Fetching cars
+    categoryController.fetchVehiclesByCategory(8); // Fetching cars
   }
 
   @override
@@ -30,7 +30,7 @@ class BusPage extends StatelessWidget {
           children: [
             THeaderAppBar(text: "Bus"),
 
-            SizedBox(height: 30,),
+
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() {

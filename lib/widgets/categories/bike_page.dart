@@ -15,7 +15,7 @@ class BikePage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   BikePage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(12); // Fetching cars
+    categoryController.fetchVehiclesByCategory(1); // Fetching cars
   }
 
   @override
@@ -26,7 +26,7 @@ class BikePage extends StatelessWidget {
         child: Column(
           children: [
             THeaderAppBar(text: "Bike"),
-            SizedBox(height: 30,),
+
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() {

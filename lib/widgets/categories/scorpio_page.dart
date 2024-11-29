@@ -15,7 +15,7 @@ class ScorpioPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   ScorpioPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(13); // Fetching cars
+    categoryController.fetchVehiclesByCategory(6); // Fetching cars
   }
 
   @override

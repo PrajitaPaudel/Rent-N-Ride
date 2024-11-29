@@ -15,7 +15,7 @@ class TempoPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   TempoPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(8); // Fetching cars
+    categoryController.fetchVehiclesByCategory(11); // Fetching cars
   }
 
   @override

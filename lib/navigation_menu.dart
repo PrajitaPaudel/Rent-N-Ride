@@ -71,24 +71,24 @@ class NavigationController extends GetxController {
         screens.addAll([
           UserDashboardPage(),
           VehicleGallery(),
-          ContactUs(),
-          ChatPage(),
+          ContactUsPage(),
+          AboutUsPage(),
           Profile(),
         ]);
       } else if (userType == 'Dealer') {
         screens.addAll([
           DealerDashboardPage(),
           DealerVehicleGallery(),
-          ContactUs(),
-           ChatPageScreen(userName: 'sanjana',),
+          ContactUsPage(),
+          AboutUsPage(),
           Profile(),
         ]);
       } else if (userType == 'Admin') {
         screens.addAll([
           AdminDashboardPage(),
           AdminVehicleGallery(),
-          ContactUs(),
-          AboutUs(),
+          ContactUsPage(),
+          AboutUsPage(),
           AdminProfile(),
         ]);
       } else {
@@ -96,8 +96,8 @@ class NavigationController extends GetxController {
         screens.addAll([
           HomePage(),
           VehicleGallery(),
-          ContactUs(),
-          AboutUs(),
+          ContactUsPage(),
+          AboutUsPage(),
           Profile(),
         ]);
       }
@@ -106,8 +106,8 @@ class NavigationController extends GetxController {
       screens.addAll([
         HomePage(),
         VehicleGallery(),
-        ContactUs(),
-        AboutUs(),
+        ContactUsPage(),
+        AboutUsPage(),
         Profile(),
       ]);
     }

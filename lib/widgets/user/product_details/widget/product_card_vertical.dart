@@ -119,7 +119,7 @@ class TProductCardVertical extends StatelessWidget {
                         child: SizedBox(
                           width: 32,
                           height: 32,
-                          child: Icon(Iconsax.add, color: TColors.white),
+                          child: Icon(Iconsax.arrow_right_34, color: TColors.white),
                         ),
                       ),
                     ],

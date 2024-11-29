@@ -15,7 +15,7 @@ class MinivanPage extends StatelessWidget {
   final CategoryByIdController categoryController = Get.put(CategoryByIdController());
 
   MinivanPage({Key? key}) : super(key: key) {
-    categoryController.fetchVehiclesByCategory(5); // Fetching cars
+    categoryController.fetchVehiclesByCategory(10); // Fetching cars
   }
 
   @override
