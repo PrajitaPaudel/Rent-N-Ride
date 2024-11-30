@@ -15,7 +15,7 @@ import '../../widgets/login/login_page.dart';
 
 class AuthController extends GetxController {
   var isLoading = false.obs;
-  var isLoggedIn = false.obs; // New observable for login status
+  var isLoggedIn = false.obs; 
 
   @override
   void onInit() {
@@ -35,12 +35,12 @@ class AuthController extends GetxController {
         AppStorage.saveIsLoggedin(true);
         AppStorage.saveUser(loginModel.toJson());
         AppStorage.saveUserType(loginModel.userType);
-        AppStorage.saveToken(loginModel.token ?? ''); // Save token
-        AppStorage.saveUserId(loginModel.userId ?? '');    // Save user ID
+        AppStorage.saveToken(loginModel.token ?? ''); 
+        AppStorage.saveUserId(loginModel.userId ?? '');  
 
        
         String? savedUserId = AppStorage.getUserId();
-        print("User ID after saving and retrieving: $savedUserId"); // Debug log
+        print("User ID after saving and retrieving: $savedUserId"); 
 
        
         isLoggedIn.value = true;
@@ -89,16 +89,16 @@ class AuthController extends GetxController {
         userType: userType,
       );
 
-      // Call the registration service
+     
       var data = await AuthService().register(body: signUpBody);
 
       if (data != null) {
         isLoading.value = false;
 
-        // Save user details (optional)
+    
         AppStorage.saveIsLoggedin(true);
 
-        // Navigate to LoginPage
+       
         Get.to(LoginPage());
       } else {
         isLoading.value = false;
@@ -112,7 +112,7 @@ class AuthController extends GetxController {
   }
 
   void checkLoginStatus() {
-    // Check login status from AppStorage
+  
     isLoggedIn.value = AppStorage.getIsLoggedin();
   }
 
