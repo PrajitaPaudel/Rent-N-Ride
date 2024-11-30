@@ -20,7 +20,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    checkLoginStatus(); // Check login status when the controller initializes
+    checkLoginStatus(); 
   }
 
   Future<void> login({String? username, String? password}) async {
@@ -31,18 +31,18 @@ class AuthController extends GetxController {
       if (data != null) {
         LoginModel loginModel = LoginModel.fromJson(data);
 
-        // Save user data, token, and user ID
+       
         AppStorage.saveIsLoggedin(true);
         AppStorage.saveUser(loginModel.toJson());
         AppStorage.saveUserType(loginModel.userType);
         AppStorage.saveToken(loginModel.token ?? ''); // Save token
         AppStorage.saveUserId(loginModel.userId ?? '');    // Save user ID
 
-        // Verify and print user ID after saving
+       
         String? savedUserId = AppStorage.getUserId();
         print("User ID after saving and retrieving: $savedUserId"); // Debug log
 
-        // Update login status and navigate based on user type
+       
         isLoggedIn.value = true;
         if (loginModel.userType == 'User') {
           Get.offAll(UserDashboardPage());
@@ -76,7 +76,7 @@ class AuthController extends GetxController {
     try {
       isLoading.value = true;
 
-      // Create the SignUpBody with all required fields
+     
       SignUpBody signUpBody = SignUpBody(
         uname: uname,
         fname: fname,
@@ -117,9 +117,9 @@ class AuthController extends GetxController {
   }
 
   void logout() {
-    AppStorage.removeStorage(); // Clear storage on logout
-    isLoggedIn.value = false; // Update login status
-    Get.offAll(HomePage()); // Redirect to home page
+    AppStorage.removeStorage(); 
+    isLoggedIn.value = false; 
+    Get.offAll(HomePage()); 
   }
 }
 
