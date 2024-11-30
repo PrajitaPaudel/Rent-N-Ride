@@ -27,7 +27,7 @@ class BrandController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadBrands(); // Load brands when the controller initializes
+    loadBrands(); 
   }
 
   void loadBrands() async {
@@ -41,7 +41,7 @@ class BrandController extends GetxController {
 
   void selectBrand(int id) {
     selectedBrandId.value = id;
-    print('Selected brand ID: $id'); // For debugging purposes
+    print('Selected brand ID: $id'); 
   }
 
 
