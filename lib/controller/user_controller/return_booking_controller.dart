@@ -24,14 +24,14 @@ import 'package:http/http.dart' as http;
 class ReturnController extends GetxController {
   final ReturnService _returnService = ReturnService();
 
-  // Fields for return details
+ 
   int? bookingId;
   DateTime returnDate = DateTime.now();
   String returnLocation = '';
   int rating = 1;
   String? damageReported;
 
-  // Method to submit the return details
+ 
   Future<void> submitReturn({
     required int bookingId,
     required DateTime returnDate,
@@ -40,7 +40,7 @@ class ReturnController extends GetxController {
     String? damageReported,
   }) async {
     String? userId =AppStorage.getUserId();
-    // Check for empty fields that might cause validation errors
+   
     if (returnLocation.isEmpty || rating < 1 || rating > 5) {
       print("Please fill in all required fields correctly.");
       return;
@@ -56,20 +56,20 @@ class ReturnController extends GetxController {
       userId: userId,
     );
 
-    // Call the service to submit the return data
+    
     try {
-      // Capture the returnId from the service
+   
       int? returnId = await _returnService.submitReturn(returnModel);
 
       if (returnId != null) {
         showCustomSnakeBar("Return submitted successfully.", color: Colors.green, title: 'Success');
         print("Return submitted successfully with returnId: $returnId");
 
-        // Navigate based on damageReported value and pass returnId if needed
+    
         if (damageReported == "No Damage") {
           Get.to(() => UserDashboardPage());
         } else {
-          // Pass the returnId to PaymentPage
+         
           Get.to(() => PaymentPage(returnId: returnId, bookingId: bookingId,));
         }
       } else {
@@ -85,7 +85,7 @@ class ReturnController extends GetxController {
 
   Future<void> confirmReturn(int returnId, BookingConfirmationModel bookingConfirmation) async {
     String? token = AppStorage.getToken();
-    // Construct the URL dynamically using the returnId
+    
     final url = '${AppConstant.BASE_URL}${AppConstant.Damage_Payment}$returnId';
 
     try {
@@ -96,21 +96,21 @@ class ReturnController extends GetxController {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        body: jsonEncode(bookingConfirmation.toJson()), // Convert the model to JSON
+        body: jsonEncode(bookingConfirmation.toJson()), 
       );
 
       if (response.statusCode == 200) {
-        // Successfully confirmed the return, show success message and navigate
+   
         Get.to(() => UserDashboardPage());
         print("Return confirmed successfully!");
         showCustomSnakeBar('Return confirmed successfully!', title: 'Success', color: Colors.green);
       } else {
-        // If something goes wrong, print the error
+       
         print("Failed to confirm return: ${response.statusCode}");
         showCustomSnakeBar("Failed to confirm return", title: 'Error', color: Colors.red);
       }
     } catch (e) {
-      // Handle errors in the request
+      
       print("Error in confirming return: $e");
       showCustomSnakeBar("Error in confirming return", title: 'Error', color: Colors.red);
     }
