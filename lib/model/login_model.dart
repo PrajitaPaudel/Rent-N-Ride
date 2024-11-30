@@ -44,9 +44,9 @@ class LoginModel {
     };
   }
 
-  // Factory constructor to create an instance from JSON
+  
   LoginModel.fromJson(Map<String, dynamic> json) {
-    id = json['$id'];  // Extract id from the response
+    id = json['$id']; 
     userName = json['userName'];
     userId=json['userId'];
     firstName = json['firstName'];
