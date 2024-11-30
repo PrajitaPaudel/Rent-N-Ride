@@ -28,7 +28,7 @@ class BookingController extends GetxController {
 
   final BookingService _bookingService = BookingService();
 
-  // Controllers for booking details
+ 
   int? id;
   DateTime? startDate;
   DateTime? endDate;
@@ -43,10 +43,10 @@ class BookingController extends GetxController {
   List<XFile>? images = <XFile>[].obs;
   String? userId;
 
-  // Image picker
+ 
   final ImagePicker imagePicker = ImagePicker();
 
-  // Method to pick images
+ 
   Future<void> pickImages() async {
     var pickedFiles = await imagePicker.pickMultiImage();
     if (pickedFiles != null) {
@@ -54,7 +54,7 @@ class BookingController extends GetxController {
     }
   }
 
-  // Method to create a new booking
+  
   Future<void> createBooking({
 
     required DateTime startDate,
@@ -70,10 +70,10 @@ class BookingController extends GetxController {
     required List<XFile> images,
   }) async {
     String? userId =AppStorage.getUserId();
-    // Convert XFiles to Files
+  
     List<File> imageFiles = images.map((xfile) => File(xfile.path)).toList();
 
-    // Create the booking model
+   
     BookingModel bookingModel = BookingModel(
 
        id: id,
@@ -97,7 +97,7 @@ class BookingController extends GetxController {
       // var response = await _bookingService.uploadBookingDetails(bookingModel);
 
       if (bookingId != null) {
-        bookingModel.id = bookingId; // Store the booking ID in the model
+        bookingModel.id = bookingId;
         showCustomSnakeBar("Booking created successfully", title: "Success", color: Colors.green);
         Get.to(() =>BookingTotalAmountPage(bookingId:bookingId, vehicle: vehicle??Vehicle(),));
       } else {
