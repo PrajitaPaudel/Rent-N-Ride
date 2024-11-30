@@ -21,7 +21,7 @@ class AllVehicleController extends GetxController {
     isLoading(true); 
     var result = await ALLVehicleService().fetchPopularVehicles();
     if (result != null && result.values != null && result.values!.isNotEmpty) {
-      // Assign fetched data to popularModel
+     
       popularModel.value = result;
     } else {
       // Assign an empty list if no data is fetched
