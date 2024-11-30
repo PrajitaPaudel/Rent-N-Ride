@@ -1,5 +1,5 @@
 class LoginModel {
-  String? id;  // Make id nullable
+  String? id;  
   String? userName;
   String? firstName;
   String? lastName;
@@ -10,11 +10,11 @@ class LoginModel {
   String? address;
   String? driverLicInfo;
   String? userType;
-  String? token;  // Add this line to include the token
+  String? token;  
 
   // Constructor with the token included
   LoginModel({
-    this.id,  // id can be nullable now
+    this.id,  
     this.userName,
     this.firstName,
     this.lastName,
@@ -57,6 +57,6 @@ class LoginModel {
     address = json['address'];
     driverLicInfo = json['driverLicInfo'];
     userType = json['userType'];
-    token = json['token'];  // Extract token from the response
+    token = json['token']; 
   }
 }
