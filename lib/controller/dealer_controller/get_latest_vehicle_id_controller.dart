@@ -10,13 +10,13 @@ class LatestVehicleController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchLatestVehicleId(); // Fetch latest ID when the page loads
+    fetchLatestVehicleId();
   }
 
   void fetchLatestVehicleId() async {
     try {
       final response = await LatestVehicleService.getLatestVehicleId();
-      latestVehicleId.value = response; // Update ID for new registration
+      latestVehicleId.value = response; 
     } catch (e) {
       print("Failed to fetch latest vehicle ID: $e");
     }
