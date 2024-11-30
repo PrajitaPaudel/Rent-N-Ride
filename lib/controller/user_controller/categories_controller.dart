@@ -5,7 +5,7 @@ import '../../utils/constants/image_strings.dart';
 
 
 class CategoryController extends GetxController {
-  // Observable list of category images and titles
+
   var categoryImages = [
     TImages.bike,
     TImages.scooter,
@@ -22,7 +22,7 @@ class CategoryController extends GetxController {
     TImages.van,
 
 
-  ].obs; // Make it observable to update the UI reactively
+  ].obs;
 
   // var categories = <CategoryModel>[].obs;
 
