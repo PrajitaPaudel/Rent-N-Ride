@@ -12,7 +12,7 @@ class LoginModel {
   String? userType;
   String? token;  
 
-  // Constructor with the token included
+ 
   LoginModel({
     this.id,  
     this.userName,
@@ -39,8 +39,8 @@ class LoginModel {
       'email': email,
       'driverLicInfo': driverLicInfo,
       'userType': userType,
-      'token': token, // Add token to JSON conversion
-      'id': id,  // Include id in the JSON conversion
+      'token': token, 
+      'id': id,  
     };
   }
 
