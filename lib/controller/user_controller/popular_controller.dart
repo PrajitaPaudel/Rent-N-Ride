@@ -8,17 +8,17 @@ import '../../service/user/popular_service.dart';
 
 
 class PopularController extends GetxController {
-  var popularModel = PopularModel().obs; // Reactive model
+  var popularModel = PopularModel().obs; 
   var isLoading = true.obs;
 
   @override
   void onInit() {
-    fetchPopularData(); // Fetch data when the controller is initialized
+    fetchPopularData(); 
     super.onInit();
   }
 
   void fetchPopularData() async {
-    isLoading(true); // Set loading state to true
+    isLoading(true); 
     var result = await PopularService().fetchPopularVehicles();
     if (result != null && result.values != null && result.values!.isNotEmpty) {
       // Assign fetched data to popularModel
@@ -27,7 +27,7 @@ class PopularController extends GetxController {
       // Assign an empty list if no data is fetched
       popularModel.value = PopularModel(values: []);
     }
-    isLoading(false); // Set loading state to false
+    isLoading(false);
   }
 }
 
