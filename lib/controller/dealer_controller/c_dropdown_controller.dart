@@ -23,7 +23,7 @@ class VCategoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadCategories();  // Load categories when the controller initializes
+    loadCategories(); 
   }
 
   void loadCategories() async {
