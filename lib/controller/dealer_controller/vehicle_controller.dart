@@ -21,11 +21,11 @@ import '../../widgets/dealer/dealer_dashboard_page.dart';
 class VehicleController extends GetxController {
   final LatestVehicleController controller = Get.put(LatestVehicleController());
 
-  // Form field controllers
+
   final priceController = TextEditingController();
   final descriptionController = TextEditingController();
 
-  // Variables to store state for each field
+ 
   RxInt categoryId = 1.obs;
   RxInt modelId = 1.obs;
   RxInt brandId = 1.obs;
@@ -34,13 +34,13 @@ class VehicleController extends GetxController {
   RxBool popular = false.obs;
   RxList<XFile> images = <XFile>[].obs;
 
-  // Store the user ID
+  
   String? userId;
 
   @override
   void onInit() {
     super.onInit();
-    // Retrieve userId from AppStorage when controller is initialized
+ 
     userId = AppStorage.getUserId();
 
   }
@@ -59,7 +59,7 @@ class VehicleController extends GetxController {
     // Retrieve UserId from AppStorage
     String? userId =AppStorage.getUserId();
     // AppStorage.getUserId();
-    print("User ID in vregistration: $userId"); // Log to confirm retrieval
+    print("User ID in vregistration: $userId");
 
     if (userId == null || userId.isEmpty) {
       print("User ID not found. Please log in.");
@@ -88,7 +88,7 @@ class VehicleController extends GetxController {
       var response = await uploadVehicleRegistration(
         registrationBody: registrationBody,
         imageFiles: imageFiles,
-         userId: userId!,  // Pass userId to the service
+         userId: userId!, 
       );
 
       // Use the response here
